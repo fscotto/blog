@@ -8,10 +8,10 @@ import java.time.format.DateTimeFormatter
 
 class LocalDateDeserializer : StdDeserializer<LocalDateTime>(LocalDateTime::class.java) {
 
-  private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+	private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
-  override fun deserialize(jsonParser: JsonParser, context: DeserializationContext): LocalDateTime {
-    val text = jsonParser.readValueAs(String::class.java)
-    return if (text == null) LocalDateTime.MAX else LocalDateTime.parse(text, formatter)
-  }
+	override fun deserialize(jsonParser: JsonParser, context: DeserializationContext): LocalDateTime {
+		val text = jsonParser.readValueAs(String::class.java)
+		return if (text == null) LocalDateTime.MAX else LocalDateTime.parse(text, formatter)
+	}
 }

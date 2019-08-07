@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter
 
 class LocalDateSerialiazer : StdSerializer<LocalDateTime>(LocalDateTime::class.java) {
 
-  private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+	private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
-  override fun serialize(value: LocalDateTime, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider) {
-    jsonGenerator.writeString(value.format(formatter))
-  }
+	override fun serialize(value: LocalDateTime, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider) {
+		jsonGenerator.writeString(value.format(formatter))
+	}
 }
