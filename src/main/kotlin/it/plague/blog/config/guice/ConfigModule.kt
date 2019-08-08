@@ -1,4 +1,4 @@
-package it.plague.blog.module
+package it.plague.blog.config.guice
 
 import com.google.inject.AbstractModule
 import com.google.inject.name.Names
