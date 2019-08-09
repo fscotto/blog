@@ -3,10 +3,15 @@ package it.plague.blog
 import com.google.inject.Guice
 import com.google.inject.Module
 import io.vertx.core.Vertx
+import io.vertx.core.VertxOptions
 import io.vertx.core.logging.LoggerFactory
-import it.plague.blog.config.guice.*
+import it.plague.blog.config.guice.ConfigModule
+import it.plague.blog.config.guice.DatabaseModule
+import it.plague.blog.config.guice.GuiceVerticleFactory
+import it.plague.blog.config.guice.RouterModule
 import it.plague.blog.verticle.HttpVerticle
 import it.plague.blog.verticle.PgArticleVerticle
+import java.util.concurrent.TimeUnit
 
 object BlogApplication {
 
@@ -28,13 +33,22 @@ object BlogApplication {
 		return arrayOf(
 			ConfigModule(),
 			RouterModule(vertx),
-			DatabaseModule(vertx),
-			CommonModule()
+			DatabaseModule(vertx)
 		)
 	}
 
 	@JvmStatic
 	private fun deploy(vertx: Vertx, prefix: String, verticleName: String) {
 		vertx.deployVerticle("$prefix:$verticleName")
+	}
+
+	@JvmStatic
+	private fun options(eventLoops: Int = 2 * Runtime.getRuntime().availableProcessors()): VertxOptions {
+		return VertxOptions()
+			.setEventLoopPoolSize(eventLoops)
+			.setWarningExceptionTime(1)
+			.setMaxEventLoopExecuteTime(TimeUnit.SECONDS.toNanos(1))
+			.setMaxWorkerExecuteTime(TimeUnit.SECONDS.toNanos(1))
+			.setBlockedThreadCheckInterval(TimeUnit.SECONDS.toMillis(1))
 	}
 }

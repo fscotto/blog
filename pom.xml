@@ -78,10 +78,6 @@
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
-            <artifactId>vertx-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.vertx</groupId>
             <artifactId>vertx-pg-client</artifactId>
         </dependency>
         <dependency>
@@ -90,22 +86,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Vert.x third part extensions -->
-        <dependency>
-            <groupId>io.github.jklingsporn</groupId>
-            <artifactId>vertx-jooq-classic</artifactId>
-            <version>4.1.0</version>
-        </dependency>
-
         <!-- Google Guice -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>${guice.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.inject.extensions</groupId>
-            <artifactId>guice-persist</artifactId>
             <version>${guice.version}</version>
         </dependency>
 
@@ -139,13 +123,6 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>3.0.0</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- JDBC -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.6</version>
         </dependency>
     </dependencies>
 
