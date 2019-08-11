@@ -5,10 +5,7 @@ import com.google.inject.Module
 import io.vertx.core.Vertx
 import io.vertx.core.VertxOptions
 import io.vertx.core.logging.LoggerFactory
-import it.plague.blog.config.guice.ConfigModule
-import it.plague.blog.config.guice.DatabaseModule
-import it.plague.blog.config.guice.GuiceVerticleFactory
-import it.plague.blog.config.guice.RouterModule
+import it.plague.blog.config.guice.*
 import it.plague.blog.verticle.HttpVerticle
 import it.plague.blog.verticle.PgArticleVerticle
 import java.util.concurrent.TimeUnit
@@ -31,8 +28,9 @@ object BlogApplication {
 	@JvmStatic
 	private fun modules(vertx: Vertx): Array<Module> {
 		return arrayOf(
+			VertxModule(vertx),
 			ConfigModule(),
-			RouterModule(vertx),
+			WebModule(vertx),
 			DatabaseModule(vertx)
 		)
 	}

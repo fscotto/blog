@@ -17,6 +17,15 @@ class DatabaseModule(private val vertx: Vertx) : PrivateModule() {
 	@Singleton
 	@Provides
 	fun providePgPool(): PgPool {
-		return PgPool.pool(vertx, PgConnectOptions.fromEnv(), PoolOptions())
+		return PgPool.pool(vertx, pgConnectOptions(), poolOptions())
 	}
+
+	@Exposed
+	@Singleton
+	@Provides
+	fun provideConnectionOptions(): MutableMap<String, Any> = pgConnectOptions().toJson().map
+
+	private fun pgConnectOptions() = PgConnectOptions.fromEnv()
+
+	private fun poolOptions() = PoolOptions()
 }
