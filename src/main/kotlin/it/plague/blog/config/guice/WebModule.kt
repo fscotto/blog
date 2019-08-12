@@ -5,6 +5,7 @@ import com.google.inject.PrivateModule
 import com.google.inject.Provides
 import com.google.inject.Singleton
 import io.vertx.core.Vertx
+import io.vertx.core.http.HttpClient
 import io.vertx.core.http.HttpMethod
 import io.vertx.core.http.HttpServer
 import io.vertx.core.http.HttpServerOptions
@@ -23,6 +24,13 @@ class WebModule(private val vertx: Vertx) : PrivateModule() {
 		val options = HttpServerOptions()
 		options.isCompressionSupported = true
 		return vertx.createHttpServer(options)
+	}
+
+	@Provides
+	@Singleton
+	@Exposed
+	fun httpClient(): HttpClient {
+		return vertx.createHttpClient()
 	}
 
 	@Provides

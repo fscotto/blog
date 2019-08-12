@@ -21,7 +21,7 @@ class HttpVerticle @Inject constructor(private val httpServer: HttpServer,
 			httpServer
 				.requestHandler(router)
 				.listen(port.toInt(), it)
-			LoggerFactory.getLogger(this.javaClass).info("Server listening on $host:$port")
+			log.info("Server listening on $host:$port")
 		}
 	}
 }

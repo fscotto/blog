@@ -1,7 +1,6 @@
 package it.plague.blog.verticle
 
 import com.google.inject.Inject
-import io.vertx.core.AbstractVerticle
 import io.vertx.core.AsyncResult
 import io.vertx.core.Handler
 import io.vertx.core.Promise
@@ -9,11 +8,12 @@ import io.vertx.core.eventbus.EventBus
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.LoggerFactory
+import io.vertx.kotlin.coroutines.CoroutineVerticle
 import io.vertx.pgclient.PgPool
 
 
 class PgArticleVerticle @Inject constructor(private val client: PgPool,
-																						private val eventBus: EventBus) : AbstractVerticle() {
+																						private val eventBus: EventBus) : CoroutineVerticle() {
 
 	private val log = LoggerFactory.getLogger(javaClass)
 

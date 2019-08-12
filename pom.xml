@@ -15,7 +15,7 @@
         <guice.version>4.2.2</guice.version>
         <junit-jupiter.version>5.5.0</junit-jupiter.version>
         <assertj-core.version>3.13.1</assertj-core.version>
-        <hibernate.version>5.4.3.Final</hibernate.version>
+        <jackson.version>2.9.7</jackson.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -78,6 +78,10 @@
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
+            <artifactId>vertx-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.vertx</groupId>
             <artifactId>vertx-pg-client</artifactId>
         </dependency>
         <dependency>
@@ -123,6 +127,18 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>3.0.0</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 

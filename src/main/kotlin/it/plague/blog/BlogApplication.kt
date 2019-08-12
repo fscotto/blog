@@ -17,30 +17,34 @@ object BlogApplication {
 	@JvmStatic
 	fun main(args: Array<String>) {
 		log.info("Start Vert.x Home Blog")
-		val vertx = Vertx.vertx(options())
-		val injector = Guice.createInjector(*modules(vertx))
-		val factory = GuiceVerticleFactory(injector)
-		vertx.registerVerticleFactory(factory)
-		deploy(vertx, factory.prefix(), HttpVerticle::class.java.name)
-		deploy(vertx, factory.prefix(), PgArticleVerticle::class.java.name)
+		Vertx.vertx(options()).apply {
+			val factory = guiceBootstrap()
+			deploy(factory.prefix(), HttpVerticle::class.java.name)
+			deploy(factory.prefix(), PgArticleVerticle::class.java.name)
+		}
 	}
 
-	@JvmStatic
+	private fun Vertx.guiceBootstrap(): GuiceVerticleFactory {
+		val injector = Guice.createInjector(*modules(this))
+		val factory = GuiceVerticleFactory(injector)
+		this.registerVerticleFactory(factory)
+		return factory
+	}
+
+	private fun Vertx.deploy(prefix: String, verticleName: String) {
+		this.deployVerticle("$prefix:$verticleName")
+	}
+
 	private fun modules(vertx: Vertx): Array<Module> {
 		return arrayOf(
 			VertxModule(vertx),
 			ConfigModule(),
 			WebModule(vertx),
-			DatabaseModule(vertx)
+			DatabaseModule(vertx),
+			JacksonModule()
 		)
 	}
 
-	@JvmStatic
-	private fun deploy(vertx: Vertx, prefix: String, verticleName: String) {
-		vertx.deployVerticle("$prefix:$verticleName")
-	}
-
-	@JvmStatic
 	private fun options(eventLoops: Int = 2 * Runtime.getRuntime().availableProcessors()): VertxOptions {
 		return VertxOptions()
 			.setEventLoopPoolSize(eventLoops)
