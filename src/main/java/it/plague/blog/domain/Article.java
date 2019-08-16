@@ -46,6 +46,7 @@ public class Article {
 		this.created = article.created;
 		this.modifiedBy = article.modifiedBy;
 		this.modified = article.modified;
+		this.title = article.title;
 		this.content = article.content;
 	}
 

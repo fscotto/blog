@@ -12,8 +12,10 @@ import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.handler.CorsHandler;
-import it.plague.blog.handler.IndexHandler;
+import io.vertx.ext.web.common.template.TemplateEngine;
+import io.vertx.ext.web.handler.*;
+import io.vertx.ext.web.sstore.LocalSessionStore;
+import io.vertx.ext.web.templ.freemarker.FreeMarkerTemplateEngine;
 
 public class WebModule extends PrivateModule {
 
@@ -46,10 +48,21 @@ public class WebModule extends PrivateModule {
 	@Provides
 	@Singleton
 	@Exposed
+	public TemplateEngine getTemplateEngine() {
+		return FreeMarkerTemplateEngine.create(vertx);
+	}
+
+	@Provides
+	@Singleton
+	@Exposed
 	public Router getRouter() {
 		var router = Router.router(vertx);
+		router.route().handler(CookieHandler.create());
+		router.route().handler(BodyHandler.create());
+		router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
+		router.route("/static/*").handler(StaticHandler.create().setCachingEnabled(false));
 		router.route().handler(getCorsHandler());
-		router.route("/").handler(new IndexHandler());
+		router.post().handler(BodyHandler.create());
 		return router;
 	}
 
