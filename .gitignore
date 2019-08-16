@@ -124,5 +124,7 @@ buildNumber.properties
 # Vertx cache directory
 .vertx
 *.id
+**/asciidoc
+**/generated
 
 # End of https://www.gitignore.io/api/java,maven,vertx,intellij
