@@ -17,6 +17,7 @@ public class VertxModule extends PrivateModule {
 
 	@Override
 	protected void configure() {
+		bind(Vertx.class).toInstance(vertx);
 	}
 
 	@Provides

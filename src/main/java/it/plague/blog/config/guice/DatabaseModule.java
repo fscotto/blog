@@ -8,6 +8,8 @@ import io.vertx.core.Vertx;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.PoolOptions;
+import it.plague.blog.database.ArticleDatabaseService;
+import it.plague.blog.util.Constant;
 
 public class DatabaseModule extends PrivateModule {
 
@@ -33,6 +35,13 @@ public class DatabaseModule extends PrivateModule {
 	@Provides
 	public PgConnectOptions getConnectOptions() {
 		return PgConnectOptions.fromEnv();
+	}
+
+	@Exposed
+	@Singleton
+	@Provides
+	public ArticleDatabaseService getArticleDatabaseServiceProxy() {
+		return ArticleDatabaseService.createProxy(vertx, Constant.CONFIG_BLOGDB_QUEUE);
 	}
 
 	private PoolOptions getPoolOptions() {

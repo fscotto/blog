@@ -18,7 +18,7 @@ public final class JsonConverter {
 
 	private static final Logger log = LoggerFactory.getLogger(JsonConverter.class);
 
-	public static <T> Optional<T> fromJson(JsonObject jsonObject, Class<T> clazz) {
+	public static <T> Optional<T> fromJson(final JsonObject jsonObject, final Class<T> clazz) {
 		try {
 			var mapper = createObjectMapper();
 			return Optional.ofNullable(mapper.readValue(jsonObject.encode(), clazz));
@@ -28,7 +28,7 @@ public final class JsonConverter {
 		return Optional.empty();
 	}
 
-	public static JsonObject toJson(Object o) {
+	public static JsonObject toJson(final Object o) {
 		try {
 			var mapper = createObjectMapper();
 			return new JsonObject(mapper.writeValueAsString(o));

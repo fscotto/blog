@@ -1,6 +1,8 @@
 package it.plague.blog.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Objects;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
@@ -13,15 +15,19 @@ public class Author {
 	private Long id;
 	private String name;
 	private String lastName;
+	@JsonSerialize
+	@JsonDeserialize
+	private User user;
 
 	public Author() {
-		this(0L, "", "");
+		this(0L, "", "", null);
 	}
 
-	public Author(Long id, String name, String lastName) {
+	public Author(Long id, String name, String lastName, User user) {
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
+		this.user = user;
 	}
 
 	public Author(JsonObject jsonObject) {
@@ -32,6 +38,7 @@ public class Author {
 		this.id = author.id;
 		this.name = author.name;
 		this.lastName = author.lastName;
+		this.user = author.user;
 	}
 
 	public JsonObject toJson() {
@@ -69,12 +76,13 @@ public class Author {
 		Author author = (Author) o;
 		return Objects.equal(id, author.id) &&
 			Objects.equal(name, author.name) &&
-			Objects.equal(lastName, author.lastName);
+			Objects.equal(lastName, author.lastName) &&
+			Objects.equal(user, author.user);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(id, name, lastName);
+		return Objects.hashCode(id, name, lastName, user);
 	}
 
 	@Override
@@ -83,6 +91,7 @@ public class Author {
 			"id=" + id +
 			", name='" + name + '\'' +
 			", lastName='" + lastName + '\'' +
+			", user=" + user +
 			'}';
 	}
 }

@@ -8,6 +8,8 @@ import io.vertx.core.http.HttpServer;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
+import it.plague.blog.database.ArticleDatabaseService;
+import it.plague.blog.util.Constant;
 
 public class HttpVerticle extends AbstractVerticle {
 
@@ -15,13 +17,16 @@ public class HttpVerticle extends AbstractVerticle {
 
 	private final HttpServer httpServer;
 	private final Router router;
+	private final ArticleDatabaseService dbService;
 	private final String host;
 	private final String port;
 
 	@Inject
-	public HttpVerticle(HttpServer httpServer, Router router, @Named("HOST") String host, @Named("PORT") String port) {
+	public HttpVerticle(HttpServer httpServer, Router router, ArticleDatabaseService dbService,
+											@Named(Constant.HTTP_SERVER_HOST) String host, @Named(Constant.HTTP_SERVER_PORT) String port) {
 		this.httpServer = httpServer;
 		this.router = router;
+		this.dbService = dbService;
 		this.host = host;
 		this.port = port;
 	}

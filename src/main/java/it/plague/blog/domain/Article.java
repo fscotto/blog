@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.base.Objects;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
+import io.vertx.sqlclient.Tuple;
 import it.plague.blog.util.JsonConverter;
 
 import java.time.LocalDateTime;
@@ -13,26 +14,24 @@ import java.time.LocalDateTime;
 public class Article {
 
 	private Long id;
-	private User createdBy;
+	private Author createdBy;
 	private LocalDateTime created;
-	private User modifiedBy;
+	private Author modifiedBy;
 	private LocalDateTime modified;
-	private Author author;
 	private String title;
 	private String content;
 
 	public Article() {
-		this(0L, null, LocalDateTime.now().withNano(0), null, null, null, "", "");
+		this(0L, null, LocalDateTime.now().withNano(0), null, null, "", "");
 	}
 
-	public Article(Long id, User createdBy, LocalDateTime created, User modifiedBy, LocalDateTime modified,
-								 Author author, String title, String content) {
+	public Article(Long id, Author createdBy, LocalDateTime created, Author modifiedBy, LocalDateTime modified,
+								 String title, String content) {
 		this.id = id;
 		this.createdBy = createdBy;
 		this.created = created;
 		this.modifiedBy = modifiedBy;
 		this.modified = modified;
-		this.author = author;
 		this.title = title;
 		this.content = content;
 	}
@@ -47,7 +46,6 @@ public class Article {
 		this.created = article.created;
 		this.modifiedBy = article.modifiedBy;
 		this.modified = article.modified;
-		this.author = article.author;
 		this.content = article.content;
 	}
 
@@ -63,11 +61,11 @@ public class Article {
 		this.id = id;
 	}
 
-	public User getCreatedBy() {
+	public Author getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(User createdBy) {
+	public void setCreatedBy(Author createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -79,11 +77,11 @@ public class Article {
 		this.created = created;
 	}
 
-	public User getModifiedBy() {
+	public Author getModifiedBy() {
 		return modifiedBy;
 	}
 
-	public void setModifiedBy(User modifiedBy) {
+	public void setModifiedBy(Author modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
@@ -93,14 +91,6 @@ public class Article {
 
 	public void setModified(LocalDateTime modified) {
 		this.modified = modified;
-	}
-
-	public Author getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(Author author) {
-		this.author = author;
 	}
 
 	public String getTitle() {
@@ -129,14 +119,13 @@ public class Article {
 			Objects.equal(created, article.created) &&
 			Objects.equal(modifiedBy, article.modifiedBy) &&
 			Objects.equal(modified, article.modified) &&
-			Objects.equal(author, article.author) &&
 			Objects.equal(title, article.title) &&
 			Objects.equal(content, article.content);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(id, createdBy, created, modifiedBy, modified, author, title, content);
+		return Objects.hashCode(id, createdBy, created, modifiedBy, modified, title, content);
 	}
 
 	@Override
@@ -147,9 +136,16 @@ public class Article {
 			", created=" + created +
 			", modifiedBy=" + modifiedBy +
 			", modified=" + modified +
-			", author=" + author +
 			", title='" + title + '\'' +
 			", content='" + content + '\'' +
 			'}';
+	}
+
+	public Tuple toCreateTuple() {
+		return Tuple.of(this.id, this.createdBy.getId(), this.created, this.title, this.content);
+	}
+
+	public Tuple toUpdateTuple() {
+		return Tuple.of(this.modifiedBy.getId(), this.modified, this.title, this.content, this.id);
 	}
 }
