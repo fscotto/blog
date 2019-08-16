@@ -13,6 +13,7 @@ import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Tuple;
 import it.plague.blog.domain.Article;
+import it.plague.blog.util.JsonUtils;
 
 import java.util.stream.Collector;
 
@@ -78,8 +79,7 @@ public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 					log.info(String.format("Article with id %d not found!!!", id));
 					response.put("found", Boolean.FALSE);
 				} else {
-					log.info(
-						String.format("Article with id %d found!!!", id));
+					log.info(String.format("Article with id %d found!!!", id));
 					response.put("found", Boolean.TRUE);
 					response.put("article", articleRowMapper(fetch.result().iterator().next()));
 				}
@@ -132,7 +132,7 @@ public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 					.put("id", row.getLong("createdby_user_id"))
 					.put("username", row.getString("createdby_user_username"))
 					.put("password", row.getString("createdby_user_password"))))
-			.put("created", row.getLocalDateTime("created"))
+			.put("created", JsonUtils.fromDateToString(row.getLocalDateTime("created")))
 			.put("modifiedBy", new JsonObject()
 				.put("id", row.getLong("modifiedby_id"))
 				.put("name", row.getString("modifiedby_name"))
@@ -141,7 +141,7 @@ public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 					.put("id", row.getLong("modifiedby_user_id"))
 					.put("username", row.getString("modifiedby_user_username"))
 					.put("password", row.getString("modifiedby_user_password"))))
-			.put("modified", row.getLocalDateTime("modified"))
+			.put("modified", JsonUtils.fromDateToString(row.getLocalDateTime("modified")))
 			.put("title", row.getString("title"))
 			.put("content", row.getString("content"));
 	}

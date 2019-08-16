@@ -48,13 +48,13 @@ class JsonConverterTest {
 
 	@Test
 	public void shouldBeConvertFromJsonToObject() {
-		var actual = JsonConverter.fromJson(json, Article.class).get();
+		var actual = JsonUtils.fromJson(json, Article.class).get();
 		assertThat(actual).isEqualTo(object);
 	}
 
 	@Test
 	public void shouldBeConvertFromObjectToJson() {
-		var actual = JsonConverter.toJson(object);
+		var actual = JsonUtils.toJson(object);
 		assertThat(actual).isEqualTo(json);
 	}
 }

@@ -27,7 +27,7 @@ final class SqlQuery {
 			"join blog.users u1 on " +
 			"	u1.id = aut1.userid " +
 			"left join blog.authors aut2 on " +
-			"	aut2.id = art.modifiedby" +
+			"	aut2.id = art.modifiedby " +
 			"left join blog.users u2 on " +
 			"	u2.id = aut2.userid";
 
