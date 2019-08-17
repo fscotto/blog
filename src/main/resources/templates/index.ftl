@@ -20,7 +20,7 @@
                     <a href="#" class="btn btn-primary">Leggi &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
-                    Pubblicato il ${article.created} da
+                    Pubblicato il ${article.creationDate} da
                     <a href="#">${article.createdBy.name} ${article.createdBy.lastName}</a>
                 </div>
             </div>
