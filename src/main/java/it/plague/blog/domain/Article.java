@@ -1,6 +1,5 @@
 package it.plague.blog.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.base.Objects;
 import io.vertx.codegen.annotations.DataObject;
@@ -9,7 +8,6 @@ import io.vertx.sqlclient.Tuple;
 import it.plague.blog.util.JsonUtil;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @DataObject
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -78,12 +76,6 @@ public class Article {
 
 	public void setCreated(LocalDateTime created) {
 		this.created = created;
-	}
-
-	@JsonIgnore
-	public String getCreationDate() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		return formatter.format(this.created);
 	}
 
 	public Author getModifiedBy() {

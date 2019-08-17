@@ -15,7 +15,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.common.template.TemplateEngine;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
-import io.vertx.ext.web.templ.freemarker.FreeMarkerTemplateEngine;
+import it.plague.blog.http.ext.MyFreeMarkerTemplateEngine;
 
 public class WebModule extends PrivateModule {
 
@@ -49,7 +49,7 @@ public class WebModule extends PrivateModule {
 	@Singleton
 	@Exposed
 	public TemplateEngine getTemplateEngine() {
-		return FreeMarkerTemplateEngine.create(vertx);
+		return MyFreeMarkerTemplateEngine.create(vertx);
 	}
 
 	@Provides

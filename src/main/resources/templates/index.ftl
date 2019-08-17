@@ -20,7 +20,7 @@
                     <a href="#" class="btn btn-primary">Leggi &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
-                    Pubblicato il ${article.creationDate} da
+                    Pubblicato il ${formatDateTime(article.created, 'dd/MM/yyyy HH:mm')} da
                     <a href="#">${article.createdBy.name} ${article.createdBy.lastName}</a>
                 </div>
             </div>
