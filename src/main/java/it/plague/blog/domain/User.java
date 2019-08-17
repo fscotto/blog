@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.base.Objects;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
-import it.plague.blog.util.JsonUtils;
+import it.plague.blog.util.JsonUtil;
 
 @DataObject
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -25,7 +25,7 @@ public class User {
 	}
 
 	public User(JsonObject jsonObject) {
-		JsonUtils.fromJson(jsonObject, this.getClass()).ifPresent(this::init);
+		JsonUtil.fromJson(jsonObject, this.getClass()).ifPresent(this::init);
 	}
 
 	private void init(User user) {
@@ -35,7 +35,7 @@ public class User {
 	}
 
 	public JsonObject toJson() {
-		return JsonUtils.toJson(this);
+		return JsonUtil.toJson(this);
 	}
 
 	public Long getId() {

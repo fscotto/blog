@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Objects;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
-import it.plague.blog.util.JsonUtils;
+import it.plague.blog.util.JsonUtil;
 
 @DataObject
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -31,7 +31,7 @@ public class Author {
 	}
 
 	public Author(JsonObject jsonObject) {
-		JsonUtils.fromJson(jsonObject, this.getClass()).ifPresent(this::init);
+		JsonUtil.fromJson(jsonObject, this.getClass()).ifPresent(this::init);
 	}
 
 	private void init(Author author) {
@@ -42,7 +42,7 @@ public class Author {
 	}
 
 	public JsonObject toJson() {
-		return JsonUtils.toJson(this);
+		return JsonUtil.toJson(this);
 	}
 
 	public Long getId() {

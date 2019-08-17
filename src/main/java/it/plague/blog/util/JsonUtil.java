@@ -12,13 +12,11 @@ import it.plague.blog.serializer.LocalDateSerializer;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
 
-public final class JsonUtils {
+public final class JsonUtil {
 
-	private static final Logger log = LoggerFactory.getLogger(JsonUtils.class);
+	private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
 
 	public static <T> Optional<T> fromJson(final JsonObject jsonObject, final Class<T> clazz) {
 		try {
@@ -49,10 +47,5 @@ public final class JsonUtils {
 				.addDeserializer(LocalDateTime.class, new LocalDateDeserializer(LocalDateTime.class))
 		);
 		return mapper;
-	}
-
-	public static String fromDateToString(TemporalAccessor date) {
-		var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		return date != null ? formatter.format(date) : "";
 	}
 }

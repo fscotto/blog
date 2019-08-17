@@ -5,7 +5,7 @@ import com.google.common.base.Objects;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
 import io.vertx.sqlclient.Tuple;
-import it.plague.blog.util.JsonUtils;
+import it.plague.blog.util.JsonUtil;
 
 import java.time.LocalDateTime;
 
@@ -37,7 +37,7 @@ public class Article {
 	}
 
 	public Article(JsonObject jsonObject) {
-		JsonUtils.fromJson(jsonObject, this.getClass()).ifPresent(this::init);
+		JsonUtil.fromJson(jsonObject, this.getClass()).ifPresent(this::init);
 	}
 
 	private void init(Article article) {
@@ -51,7 +51,7 @@ public class Article {
 	}
 
 	public JsonObject toJson() {
-		return JsonUtils.toJson(this);
+		return JsonUtil.toJson(this);
 	}
 
 	public Long getId() {
@@ -143,7 +143,7 @@ public class Article {
 	}
 
 	public Tuple toCreateTuple() {
-		return Tuple.of(this.id, this.createdBy.getId(), this.created, this.title, this.content);
+		return Tuple.of(this.createdBy.getId(), this.created, this.title, this.content);
 	}
 
 	public Tuple toUpdateTuple() {

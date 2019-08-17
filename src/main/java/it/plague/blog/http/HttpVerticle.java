@@ -68,6 +68,7 @@ public class HttpVerticle extends AbstractVerticle {
 				context.put("articles", reply.result()
 					.stream()
 					.filter(Objects::nonNull)
+					.filter(obj -> obj instanceof JsonObject)
 					.map(obj -> (JsonObject) obj)
 					.map(jsonObject -> new Article(jsonObject))
 					.collect(Collectors.toList()));

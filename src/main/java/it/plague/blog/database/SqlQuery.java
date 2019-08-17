@@ -32,7 +32,8 @@ final class SqlQuery {
 			"	u2.id = aut2.userid";
 
 	public static final String FETCH_ONE_ARTICLE = FETCH_ALL_ARTICLES + " where art.id = $1";
-	public static final String INSERT_ARTICLE = "insert into blog.articles (id, createdby, created, title, content) value ($1, $2, $3, $4, $5)";
+	public static final String INSERT_ARTICLE = "insert into blog.articles (id, createdby, created, title, content) " +
+		"value (default, $1, $2, $3, $4)";
 	public static final String UPDATE_ARTICLE = "update blog.articles set modifiedBy = $1, modified = $2, title = $3, content = $4 where id = $5";
 	public static final String DELETE_ARTICLE = "delete from blog.articles where id = $1";
 }

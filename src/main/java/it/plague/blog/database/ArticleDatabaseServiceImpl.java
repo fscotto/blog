@@ -13,7 +13,7 @@ import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Tuple;
 import it.plague.blog.domain.Article;
-import it.plague.blog.util.JsonUtils;
+import it.plague.blog.util.DateUtil;
 
 import java.util.stream.Collector;
 
@@ -122,7 +122,7 @@ public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 	}
 
 	private JsonObject articleRowMapper(Row row) {
-		return new JsonObject()
+		var json = new JsonObject()
 			.put("id", row.getLong("id"))
 			.put("createdBy", new JsonObject()
 				.put("id", row.getLong("createdby_id"))
@@ -132,8 +132,12 @@ public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 					.put("id", row.getLong("createdby_user_id"))
 					.put("username", row.getString("createdby_user_username"))
 					.put("password", row.getString("createdby_user_password"))))
-			.put("created", JsonUtils.fromDateToString(row.getLocalDateTime("created")))
-			.put("modifiedBy", new JsonObject()
+			.put("created", DateUtil.toString(row.getLocalDateTime("created").withNano(0)))
+			.put("title", row.getString("title"))
+			.put("content", row.getString("content"));
+
+		if (row.getLong("modifiedby_id") != null) {
+			json.put("modifiedBy", new JsonObject()
 				.put("id", row.getLong("modifiedby_id"))
 				.put("name", row.getString("modifiedby_name"))
 				.put("lastName", row.getString("modifiedby_lastname"))
@@ -141,8 +145,8 @@ public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 					.put("id", row.getLong("modifiedby_user_id"))
 					.put("username", row.getString("modifiedby_user_username"))
 					.put("password", row.getString("modifiedby_user_password"))))
-			.put("modified", JsonUtils.fromDateToString(row.getLocalDateTime("modified")))
-			.put("title", row.getString("title"))
-			.put("content", row.getString("content"));
+				.put("modified", DateUtil.toString(row.getLocalDateTime("modified").withNano(0)));
+		}
+		return json;
 	}
 }
