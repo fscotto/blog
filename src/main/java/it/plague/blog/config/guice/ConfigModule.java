@@ -3,9 +3,9 @@ package it.plague.blog.config.guice;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 import io.vertx.core.json.JsonObject;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
 import it.plague.blog.util.Constant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

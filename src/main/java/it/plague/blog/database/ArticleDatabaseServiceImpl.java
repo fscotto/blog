@@ -7,8 +7,6 @@ import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
 import io.vertx.reactivex.CompletableHelper;
 import io.vertx.reactivex.SingleHelper;
 import io.vertx.reactivex.core.Vertx;
@@ -18,6 +16,8 @@ import io.vertx.reactivex.sqlclient.Row;
 import io.vertx.reactivex.sqlclient.Tuple;
 import it.plague.blog.domain.Article;
 import it.plague.blog.util.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 

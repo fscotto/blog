@@ -4,8 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.common.template.TemplateEngine;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.core.http.HttpServer;
@@ -15,6 +13,8 @@ import it.plague.blog.database.ArticleDatabaseService;
 import it.plague.blog.domain.Article;
 import it.plague.blog.util.Constant;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 import java.util.stream.Collectors;

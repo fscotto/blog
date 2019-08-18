@@ -2,12 +2,12 @@ package it.plague.blog.database;
 
 import com.google.inject.Inject;
 import io.vertx.core.Promise;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.pgclient.PgPool;
 import io.vertx.serviceproxy.ServiceBinder;
 import it.plague.blog.util.Constant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ArticleDatabaseVerticle extends AbstractVerticle {
 
