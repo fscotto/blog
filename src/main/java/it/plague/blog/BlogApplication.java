@@ -2,11 +2,11 @@ package it.plague.blog;
 
 import com.google.inject.Guice;
 import com.google.inject.Module;
-import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.core.spi.VerticleFactory;
+import io.vertx.reactivex.core.Vertx;
 import it.plague.blog.config.guice.*;
 import it.plague.blog.database.ArticleDatabaseVerticle;
 import it.plague.blog.http.HttpVerticle;

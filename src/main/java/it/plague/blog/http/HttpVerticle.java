@@ -2,15 +2,15 @@ package it.plague.blog.http;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
-import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-import io.vertx.ext.web.Router;
-import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.common.template.TemplateEngine;
+import io.vertx.reactivex.core.AbstractVerticle;
+import io.vertx.reactivex.core.http.HttpServer;
+import io.vertx.reactivex.ext.web.Router;
+import io.vertx.reactivex.ext.web.RoutingContext;
 import it.plague.blog.database.ArticleDatabaseService;
 import it.plague.blog.domain.Article;
 import it.plague.blog.util.Constant;
@@ -49,15 +49,15 @@ public class HttpVerticle extends AbstractVerticle {
 		log.info("Try to start WebServer on " + host + ":" + port);
 		httpServer
 			.requestHandler(router)
-			.listen(NumberUtils.toInt(port), ar -> {
-				if (ar.succeeded()) {
+			.rxListen(NumberUtils.toInt(port))
+			.subscribe(success -> {
 					log.info("Server listening on " + host + ":" + port);
 					promise.complete();
-				} else {
-					log.error("Could not start a HTTP server", ar.cause());
-					promise.fail(ar.cause());
-				}
-			});
+				},
+				cause -> {
+					log.error("Could not start a HTTP server", cause);
+					promise.fail(cause);
+				});
 	}
 
 	private void indexHandler(RoutingContext context) {
@@ -76,7 +76,7 @@ public class HttpVerticle extends AbstractVerticle {
 				templateEngine.render(context.data(), "templates/index", page -> {
 					if (page.succeeded()) {
 						context.response().putHeader("Content-Type", "text/html");
-						context.response().end(page.result());
+						context.response().end(page.result().toString());
 					} else {
 						log.error("Page loading error", page.cause());
 						context.fail(page.cause());

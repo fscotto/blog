@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.base.Objects;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
-import io.vertx.sqlclient.Tuple;
+import io.vertx.reactivex.sqlclient.Tuple;
 import it.plague.blog.util.JsonUtil;
 
 import java.time.LocalDateTime;

@@ -4,8 +4,8 @@ import com.google.inject.Exposed;
 import com.google.inject.PrivateModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.EventBus;
+import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.core.eventbus.EventBus;
 
 public class VertxModule extends PrivateModule {
 

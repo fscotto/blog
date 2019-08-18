@@ -1,21 +1,23 @@
 package it.plague.blog.database;
 
+import com.google.common.collect.Lists;
+import io.reactivex.Flowable;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
-import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-import io.vertx.pgclient.PgPool;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.SqlConnection;
-import io.vertx.sqlclient.Tuple;
+import io.vertx.reactivex.CompletableHelper;
+import io.vertx.reactivex.SingleHelper;
+import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.core.buffer.Buffer;
+import io.vertx.reactivex.pgclient.PgPool;
+import io.vertx.reactivex.sqlclient.Row;
+import io.vertx.reactivex.sqlclient.Tuple;
 import it.plague.blog.domain.Article;
 import it.plague.blog.util.DateUtil;
-
-import java.util.stream.Collector;
 
 public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 
@@ -28,67 +30,65 @@ public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 		this.vertx = vertx;
 		this.client = client;
 
-		this.client.getConnection(connectionResult -> {
-			if (connectionResult.failed()) {
-				log.error("Could not open a database connection", connectionResult.cause());
-				readyHandler.handle(Future.failedFuture(connectionResult.cause()));
-			} else {
-				var connection = connectionResult.result();
-				Future<SqlConnection> future = Future.future();
-				this.vertx.fileSystem().readFile("sql/1-init.sql", fileResult -> {
-					if (fileResult.failed()) {
-						future.fail(fileResult.cause());
-					} else {
-						connection.query(fileResult.result().toString(), queryResult -> {
-							connection.close();
-							if (queryResult.failed()) {
-								log.error("Database preparation error", queryResult.cause());
-								readyHandler.handle(Future.failedFuture(queryResult.cause()));
-							} else {
-								readyHandler.handle(Future.succeededFuture(this));
-							}
-						});
-					}
-				});
-			}
-		});
+		prepareDatabase(readyHandler);
+	}
+
+	private void prepareDatabase(Handler<AsyncResult<ArticleDatabaseService>> readyHandler) {
+		vertx.fileSystem()
+			.rxReadFile("sql/1-init.sql")
+			.map(Buffer::toString)
+			.subscribe(SingleHelper.toObserver(queryResult -> client
+				.rxBegin()
+				.flatMapCompletable(tx -> tx
+					.rxQuery(queryResult.result())
+					.flatMapCompletable(result -> tx.rxCommit())
+					.doOnError(cause -> tx.rxRollback()))
+				.subscribe(
+					() -> {
+						log.info("Database preparation successful");
+						readyHandler.handle(Future.succeededFuture(this));
+					},
+					cause -> {
+						log.error("Database preparation error", cause);
+						readyHandler.handle(Future.failedFuture(cause));
+					})));
 	}
 
 	@Override
 	public ArticleDatabaseService fetchAllArticles(Handler<AsyncResult<JsonArray>> resultHandler) {
-		this.client.query(SqlQuery.FETCH_ALL_ARTICLES,
-			Collector.of(JsonArray::new, (ja, row) -> ja.add(articleRowMapper(row)), JsonArray::addAll),
-			result -> {
+		client.rxQuery(SqlQuery.FETCH_ALL_ARTICLES)
+			.flatMapPublisher(Flowable::fromIterable)
+			.map(this::articleRowMapper)
+			.sorted()
+			.collect(JsonArray::new, JsonArray::add)
+			.subscribe(SingleHelper.toObserver(result -> {
 				if (result.succeeded()) {
 					log.info(String.format("Found %d articles!!!", result.result().size()));
-					resultHandler.handle(Future.succeededFuture(result.result().value()));
+					resultHandler.handle(Future.succeededFuture(result.result()));
 				} else {
 					log.error("fetchAllArticles failed with error", result.cause());
 					resultHandler.handle(Future.failedFuture(result.cause()));
 				}
-			});
+			}));
 		return this;
 	}
 
 	@Override
 	public ArticleDatabaseService fetchArticle(Long id, Handler<AsyncResult<JsonObject>> resultHandler) {
-		this.client.preparedQuery(SqlQuery.FETCH_ONE_ARTICLE, Tuple.of(id), fetch -> {
-			if (fetch.succeeded()) {
+		client.rxPreparedQuery(SqlQuery.FETCH_ONE_ARTICLE, Tuple.of(id))
+			.map(fetch -> {
 				JsonObject response = new JsonObject();
-				if (fetch.result().size() == 0) {
-					log.info(String.format("Article with id %d not found!!!", id));
-					response.put("found", Boolean.FALSE);
-				} else {
+				if (fetch.rowCount() > 0) {
 					log.info(String.format("Article with id %d found!!!", id));
 					response.put("found", Boolean.TRUE);
-					response.put("article", articleRowMapper(fetch.result().iterator().next()));
+					response.put("article", articleRowMapper(Lists.newArrayList(fetch).get(0)));
+				} else {
+					log.info(String.format("Article with id %d not found!!!", id));
+					response.put("found", Boolean.FALSE);
 				}
-				resultHandler.handle(Future.succeededFuture(response));
-			} else {
-				log.error("fetchArticle failed with error", fetch.cause());
-				resultHandler.handle(Future.failedFuture(fetch.cause()));
-			}
-		});
+				return response;
+			})
+			.subscribe(SingleHelper.toObserver(resultHandler));
 		return this;
 	}
 
@@ -111,14 +111,16 @@ public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 	}
 
 	private void executeUpdate(String query, Tuple tuple, Handler<AsyncResult<Void>> resultHandler) {
-		this.client.preparedQuery(query, tuple, ar -> {
-			if (ar.succeeded()) {
-				resultHandler.handle(Future.succeededFuture());
-			} else {
-				log.error("Execute update failed cause: ", ar.cause());
-				resultHandler.handle(Future.failedFuture(ar.cause()));
-			}
-		});
+		client.rxPreparedQuery(query, tuple)
+			.toCompletable()
+			.subscribe(CompletableHelper.toObserver(result -> {
+				if (result.succeeded()) {
+					resultHandler.handle(Future.succeededFuture());
+				} else {
+					log.error("Execute update failed cause: ", result.cause());
+					resultHandler.handle(Future.failedFuture(result.cause()));
+				}
+			}));
 	}
 
 	private JsonObject articleRowMapper(Row row) {

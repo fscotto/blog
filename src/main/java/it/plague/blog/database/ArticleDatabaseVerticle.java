@@ -1,11 +1,11 @@
 package it.plague.blog.database;
 
 import com.google.inject.Inject;
-import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-import io.vertx.pgclient.PgPool;
+import io.vertx.reactivex.core.AbstractVerticle;
+import io.vertx.reactivex.pgclient.PgPool;
 import io.vertx.serviceproxy.ServiceBinder;
 import it.plague.blog.util.Constant;
 
@@ -25,7 +25,7 @@ public class ArticleDatabaseVerticle extends AbstractVerticle {
 		log.info("Start " + this.getClass().getCanonicalName());
 		ArticleDatabaseService.create(vertx, client, ready -> {
 			if (ready.succeeded()) {
-				var binder = new ServiceBinder(vertx);
+				var binder = new ServiceBinder(vertx.getDelegate());
 				binder
 					.setAddress(Constant.CONFIG_BLOGDB_QUEUE)
 					.register(ArticleDatabaseService.class, ready.result());
