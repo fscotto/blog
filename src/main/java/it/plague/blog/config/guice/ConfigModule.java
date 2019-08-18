@@ -4,17 +4,15 @@ import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 import io.vertx.core.json.JsonObject;
 import it.plague.blog.util.Constant;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.HashMap;
 
+@Slf4j
 public class ConfigModule extends AbstractModule {
-
-	private static final Logger log = LoggerFactory.getLogger(ConfigModule.class);
 
 	@Override
 	protected void configure() {

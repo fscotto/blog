@@ -13,6 +13,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <option name="outputDirectory" value="$PROJECT_DIR$/src/main" />
+        <processor name="lombok.launch.AnnotationProcessorHider$AnnotationProcessor" />
         <processor name="io.vertx.codegen.CodeGenProcessor" />
         <module name="plague-blog" />
       </profile>

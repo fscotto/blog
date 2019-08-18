@@ -8,14 +8,12 @@ import io.vertx.reactivex.core.Vertx;
 import it.plague.blog.config.guice.*;
 import it.plague.blog.database.ArticleDatabaseVerticle;
 import it.plague.blog.http.HttpVerticle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class BlogApplication {
-
-	private static final Logger log = LoggerFactory.getLogger(BlogApplication.class);
 
 	public static void main(String[] args) {
 		log.info("Start Vert.x Home Blog");

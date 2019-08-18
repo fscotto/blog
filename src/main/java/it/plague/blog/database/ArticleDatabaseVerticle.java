@@ -6,12 +6,10 @@ import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.pgclient.PgPool;
 import io.vertx.serviceproxy.ServiceBinder;
 import it.plague.blog.util.Constant;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ArticleDatabaseVerticle extends AbstractVerticle {
-
-	private static final Logger log = LoggerFactory.getLogger(ArticleDatabaseVerticle.class);
 
 	private final PgPool client;
 

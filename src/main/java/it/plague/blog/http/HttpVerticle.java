@@ -12,16 +12,14 @@ import io.vertx.reactivex.ext.web.RoutingContext;
 import it.plague.blog.database.ArticleDatabaseService;
 import it.plague.blog.domain.Article;
 import it.plague.blog.util.Constant;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class HttpVerticle extends AbstractVerticle {
-
-	private static final Logger log = LoggerFactory.getLogger(HttpVerticle.class);
 
 	private final HttpServer httpServer;
 	private final Router router;

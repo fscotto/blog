@@ -7,16 +7,14 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.vertx.core.json.JsonObject;
 import it.plague.blog.serializer.LocalDateDeserializer;
 import it.plague.blog.serializer.LocalDateSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Slf4j
 public final class JsonUtil {
-
-	private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
 
 	public static <T> Optional<T> fromJson(final JsonObject jsonObject, final Class<T> clazz) {
 		try {

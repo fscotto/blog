@@ -16,12 +16,10 @@ import io.vertx.reactivex.sqlclient.Row;
 import io.vertx.reactivex.sqlclient.Tuple;
 import it.plague.blog.domain.Article;
 import it.plague.blog.util.DateUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
-
-	private static final Logger log = LoggerFactory.getLogger(ArticleDatabaseService.class);
 
 	private final Vertx vertx;
 	private final PgPool client;

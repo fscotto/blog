@@ -17,6 +17,7 @@
         <mockito.version>3.0.0</mockito.version>
         <jackson.version>2.9.7</jackson.version>
         <apache.commons.version>3.9</apache.commons.version>
+        <lombok.version>1.18.8</lombok.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -154,6 +155,13 @@
             <artifactId>commons-lang3</artifactId>
             <version>${apache.commons.version}</version>
         </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -166,6 +174,8 @@
                     <target>11</target>
                     <useIncrementalCompilation>false</useIncrementalCompilation>
                     <annotationProcessors>
+                        <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor
+                        </annotationProcessor>
                         <annotationProcessor>io.vertx.codegen.CodeGenProcessor</annotationProcessor>
                     </annotationProcessors>
                     <generatedSourcesDirectory>${project.basedir}/src/main/generated</generatedSourcesDirectory>
