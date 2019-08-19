@@ -1,29 +1,27 @@
 package it.plague.blog.config.guice;
 
-import com.google.inject.Exposed;
-import com.google.inject.PrivateModule;
+import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.core.eventbus.EventBus;
 
-public class VertxModule extends PrivateModule {
+public class VertxModule extends AbstractModule {
 
-	private final Vertx vertx;
+  private final Vertx vertx;
 
-	public VertxModule(Vertx vertx) {
-		this.vertx = vertx;
-	}
+  public VertxModule(Vertx vertx) {
+    this.vertx = vertx;
+  }
 
-	@Override
-	protected void configure() {
-		bind(Vertx.class).toInstance(vertx);
-	}
+  @Override
+  protected void configure() {
+    bind(Vertx.class).toInstance(vertx);
+  }
 
-	@Provides
-	@Singleton
-	@Exposed
-	public EventBus getEventBus() {
-		return this.vertx.eventBus();
-	}
+  @Provides
+  @Singleton
+  public EventBus getEventBus() {
+    return this.vertx.eventBus();
+  }
 }

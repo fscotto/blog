@@ -16,34 +16,34 @@ import java.util.Optional;
 @Slf4j
 public final class JsonUtil {
 
-	public static <T> Optional<T> fromJson(final JsonObject jsonObject, final Class<T> clazz) {
-		try {
-			var mapper = createObjectMapper();
-			return Optional.ofNullable(mapper.readValue(jsonObject.encode(), clazz));
-		} catch (IOException e) {
-			log.error(e.getMessage());
-		}
-		return Optional.empty();
-	}
+  public static <T> Optional<T> fromJson(final JsonObject jsonObject, final Class<T> clazz) {
+    try {
+      var mapper = createObjectMapper();
+      return Optional.ofNullable(mapper.readValue(jsonObject.encode(), clazz));
+    } catch (IOException e) {
+      log.error(e.getMessage());
+    }
+    return Optional.empty();
+  }
 
-	public static JsonObject toJson(final Object o) {
-		try {
-			var mapper = createObjectMapper();
-			return new JsonObject(mapper.writeValueAsString(o));
-		} catch (JsonProcessingException e) {
-			log.error(e.getMessage());
-		}
-		return new JsonObject();
-	}
+  public static JsonObject toJson(final Object o) {
+    try {
+      var mapper = createObjectMapper();
+      return new JsonObject(mapper.writeValueAsString(o));
+    } catch (JsonProcessingException e) {
+      log.error(e.getMessage());
+    }
+    return new JsonObject();
+  }
 
-	private static ObjectMapper createObjectMapper() {
-		var mapper = new ObjectMapper();
-		mapper.registerModules(
-			new JavaTimeModule(),
-			new SimpleModule()
-				.addSerializer(new LocalDateSerializer(LocalDateTime.class))
-				.addDeserializer(LocalDateTime.class, new LocalDateDeserializer(LocalDateTime.class))
-		);
-		return mapper;
-	}
+  private static ObjectMapper createObjectMapper() {
+    var mapper = new ObjectMapper();
+    mapper.registerModules(
+      new JavaTimeModule(),
+      new SimpleModule()
+        .addSerializer(new LocalDateSerializer(LocalDateTime.class))
+        .addDeserializer(LocalDateTime.class, new LocalDateDeserializer(LocalDateTime.class))
+    );
+    return mapper;
+  }
 }

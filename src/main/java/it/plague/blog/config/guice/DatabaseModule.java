@@ -8,43 +8,43 @@ import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.reactivex.core.Vertx;
 import io.vertx.reactivex.pgclient.PgPool;
 import io.vertx.sqlclient.PoolOptions;
+import it.plague.blog.config.Constant;
 import it.plague.blog.database.ArticleDatabaseService;
-import it.plague.blog.util.Constant;
 
 public class DatabaseModule extends PrivateModule {
 
-	private final Vertx vertx;
+  private final Vertx vertx;
 
-	public DatabaseModule(Vertx vertx) {
-		this.vertx = vertx;
-	}
+  public DatabaseModule(Vertx vertx) {
+    this.vertx = vertx;
+  }
 
-	@Override
-	protected void configure() {
-	}
+  @Override
+  protected void configure() {
+  }
 
-	@Exposed
-	@Singleton
-	@Provides
-	public PgPool getPool() {
-		return PgPool.pool(this.vertx, getConnectOptions(), getPoolOptions());
-	}
+  @Exposed
+  @Singleton
+  @Provides
+  public PgPool getPool() {
+    return PgPool.pool(this.vertx, getConnectOptions(), getPoolOptions());
+  }
 
-	@Exposed
-	@Singleton
-	@Provides
-	public PgConnectOptions getConnectOptions() {
-		return PgConnectOptions.fromEnv();
-	}
+  @Exposed
+  @Singleton
+  @Provides
+  public PgConnectOptions getConnectOptions() {
+    return PgConnectOptions.fromEnv();
+  }
 
-	@Exposed
-	@Singleton
-	@Provides
-	public ArticleDatabaseService getArticleDatabaseServiceProxy() {
-		return ArticleDatabaseService.createProxy(vertx, Constant.CONFIG_BLOGDB_QUEUE);
-	}
+  @Exposed
+  @Singleton
+  @Provides
+  public ArticleDatabaseService getArticleDatabaseServiceProxy() {
+    return ArticleDatabaseService.createProxy(vertx, Constant.CONFIG_BLOGDB_QUEUE);
+  }
 
-	private PoolOptions getPoolOptions() {
-		return new PoolOptions();
-	}
+  private PoolOptions getPoolOptions() {
+    return new PoolOptions();
+  }
 }

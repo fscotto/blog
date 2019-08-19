@@ -10,15 +10,15 @@ import java.time.format.DateTimeFormatter;
 
 public class LocalDateDeserializer extends StdDeserializer<LocalDateTime> {
 
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-	public LocalDateDeserializer(Class<?> clazz) {
-		super(clazz);
-	}
+  public LocalDateDeserializer(Class<?> clazz) {
+    super(clazz);
+  }
 
-	@Override
-	public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-		var text = jsonParser.readValueAs(String.class);
-		return text == null ? LocalDateTime.MAX : LocalDateTime.parse(text, formatter);
-	}
+  @Override
+  public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    var text = jsonParser.readValueAs(String.class);
+    return text == null ? LocalDateTime.MAX : LocalDateTime.parse(text, formatter);
+  }
 }

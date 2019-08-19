@@ -10,14 +10,14 @@ import java.time.format.DateTimeFormatter;
 
 public class LocalDateSerializer extends StdSerializer<LocalDateTime> {
 
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-	public LocalDateSerializer(Class<LocalDateTime> clazz) {
-		super(clazz);
-	}
+  public LocalDateSerializer(Class<LocalDateTime> clazz) {
+    super(clazz);
+  }
 
-	@Override
-	public void serialize(LocalDateTime value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-		jsonGenerator.writeString(value.format(formatter));
-	}
+  @Override
+  public void serialize(LocalDateTime value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    jsonGenerator.writeString(value.format(formatter));
+  }
 }

@@ -5,7 +5,7 @@ import io.vertx.ext.web.templ.freemarker.FreeMarkerTemplateEngine;
 
 public interface MyFreeMarkerTemplateEngine extends FreeMarkerTemplateEngine {
 
-	static MyFreeMarkerTemplateEngine create(Vertx vertx) {
-		return new MyFreeMarkerTemplateEngineImpl(vertx);
-	}
+  static MyFreeMarkerTemplateEngine create(Vertx vertx) {
+    return new MyFreeMarkerTemplateEngineImpl(vertx);
+  }
 }

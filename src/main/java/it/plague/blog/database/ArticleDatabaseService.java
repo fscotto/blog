@@ -16,28 +16,28 @@ import it.plague.blog.domain.Article;
 @VertxGen
 public interface ArticleDatabaseService {
 
-	@GenIgnore
-	static ArticleDatabaseService create(Vertx vertx, PgPool client, Handler<AsyncResult<ArticleDatabaseService>> readyHandler) {
-		return new ArticleDatabaseServiceImpl(vertx, client, readyHandler);
-	}
+  @GenIgnore
+  static ArticleDatabaseService create(Vertx vertx, PgPool client, Handler<AsyncResult<ArticleDatabaseService>> readyHandler) {
+    return new ArticleDatabaseServiceImpl(vertx, client, readyHandler);
+  }
 
-	@GenIgnore
-	static ArticleDatabaseService createProxy(Vertx vertx, String address) {
-		return new ArticleDatabaseServiceVertxEBProxy(vertx.getDelegate(), address);
-	}
+  @GenIgnore
+  static ArticleDatabaseService createProxy(Vertx vertx, String address) {
+    return new ArticleDatabaseServiceVertxEBProxy(vertx.getDelegate(), address);
+  }
 
-	@Fluent
-	ArticleDatabaseService fetchAllArticles(Handler<AsyncResult<JsonArray>> resultHandler);
+  @Fluent
+  ArticleDatabaseService fetchAllArticles(Handler<AsyncResult<JsonArray>> resultHandler);
 
-	@Fluent
-	ArticleDatabaseService fetchArticle(Long id, Handler<AsyncResult<JsonObject>> resultHandler);
+  @Fluent
+  ArticleDatabaseService fetchArticle(Long id, Handler<AsyncResult<JsonObject>> resultHandler);
 
-	@Fluent
-	ArticleDatabaseService createArticle(Article article, Handler<AsyncResult<Void>> resultHandler);
+  @Fluent
+  ArticleDatabaseService createArticle(Article article, Handler<AsyncResult<Void>> resultHandler);
 
-	@Fluent
-	ArticleDatabaseService saveArticle(Article article, Handler<AsyncResult<Void>> resultHandler);
+  @Fluent
+  ArticleDatabaseService saveArticle(Article article, Handler<AsyncResult<Void>> resultHandler);
 
-	@Fluent
-	ArticleDatabaseService deleteArticle(Long id, Handler<AsyncResult<Void>> resultHandler);
+  @Fluent
+  ArticleDatabaseService deleteArticle(Long id, Handler<AsyncResult<Void>> resultHandler);
 }
