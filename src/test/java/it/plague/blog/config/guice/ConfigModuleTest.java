@@ -4,7 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-import it.plague.blog.config.Constant;
+import it.plague.blog.config.WebConstant;
 import it.plague.blog.support.annotation.UnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,11 +22,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConfigModuleTest {
 
   @Inject
-  @Named(Constant.HTTP_SERVER_HOST)
+  @Named(WebConstant.HTTP_SERVER_HOST)
   String host;
 
   @Inject
-  @Named(Constant.HTTP_SERVER_PORT)
+  @Named(WebConstant.HTTP_SERVER_PORT)
   String port;
 
   @BeforeEach
@@ -81,11 +81,11 @@ class ConfigModuleTest {
   class WhenSettingEnvironmentVariable {
 
     @Inject
-    @Named(Constant.HTTP_SERVER_HOST)
+    @Named(WebConstant.HTTP_SERVER_HOST)
     String host;
 
     @Inject
-    @Named(Constant.HTTP_SERVER_PORT)
+    @Named(WebConstant.HTTP_SERVER_PORT)
     String port;
 
     @BeforeEach

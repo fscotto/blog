@@ -7,6 +7,7 @@ import io.vertx.core.spi.VerticleFactory;
 import io.vertx.reactivex.core.Vertx;
 import it.plague.blog.config.guice.*;
 import it.plague.blog.database.ArticleDatabaseVerticle;
+import it.plague.blog.database.InformationDatabaseVerticle;
 import it.plague.blog.http.HttpVerticle;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +22,7 @@ public class BlogApplication {
     VerticleFactory factory = guiceBootstrap(vertx);
     deploy(vertx, factory.prefix(), HttpVerticle.class.getName());
     deploy(vertx, factory.prefix(), ArticleDatabaseVerticle.class.getName());
+    deploy(vertx, factory.prefix(), InformationDatabaseVerticle.class.getName());
   }
 
   private static VerticleFactory guiceBootstrap(Vertx vertx) {

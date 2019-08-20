@@ -5,7 +5,7 @@ import io.vertx.core.Promise;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.pgclient.PgPool;
 import io.vertx.serviceproxy.ServiceBinder;
-import it.plague.blog.config.Constant;
+import it.plague.blog.config.EventBusAddress;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,7 +25,7 @@ public class ArticleDatabaseVerticle extends AbstractVerticle {
       if (ready.succeeded()) {
         var binder = new ServiceBinder(vertx.getDelegate());
         binder
-          .setAddress(Constant.CONFIG_BLOGDB_QUEUE)
+          .setAddress(EventBusAddress.ARTICLE_DB_SERVICE)
           .register(ArticleDatabaseService.class, ready.result());
         promise.complete();
       } else {

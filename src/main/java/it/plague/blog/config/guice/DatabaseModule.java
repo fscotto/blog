@@ -4,11 +4,14 @@ import com.google.inject.Exposed;
 import com.google.inject.PrivateModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.reactivex.core.Vertx;
+import io.vertx.reactivex.ext.mongo.MongoClient;
 import io.vertx.reactivex.pgclient.PgPool;
 import io.vertx.sqlclient.PoolOptions;
-import it.plague.blog.config.Constant;
+import it.plague.blog.config.DatabaseConstant;
+import it.plague.blog.config.EventBusAddress;
 import it.plague.blog.database.ArticleDatabaseService;
 
 public class DatabaseModule extends PrivateModule {
@@ -41,10 +44,20 @@ public class DatabaseModule extends PrivateModule {
   @Singleton
   @Provides
   public ArticleDatabaseService getArticleDatabaseServiceProxy() {
-    return ArticleDatabaseService.createProxy(vertx, Constant.CONFIG_BLOGDB_QUEUE);
+    return ArticleDatabaseService.createProxy(vertx, EventBusAddress.ARTICLE_DB_SERVICE);
+  }
+
+  @Exposed
+  @Singleton
+  @Provides
+  public MongoClient getMongoClient() {
+    JsonObject config = new JsonObject()
+      .put("connection_string", System.getenv(DatabaseConstant.MONGODB_URI));
+    return MongoClient.createNonShared(vertx, config);
   }
 
   private PoolOptions getPoolOptions() {
     return new PoolOptions();
   }
+
 }

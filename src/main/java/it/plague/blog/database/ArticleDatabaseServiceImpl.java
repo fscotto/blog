@@ -19,12 +19,12 @@ import it.plague.blog.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
+class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 
   private final Vertx vertx;
   private final PgPool client;
 
-  public ArticleDatabaseServiceImpl(Vertx vertx, PgPool client, Handler<AsyncResult<ArticleDatabaseService>> readyHandler) {
+  ArticleDatabaseServiceImpl(Vertx vertx, PgPool client, Handler<AsyncResult<ArticleDatabaseService>> readyHandler) {
     this.vertx = vertx;
     this.client = client;
 

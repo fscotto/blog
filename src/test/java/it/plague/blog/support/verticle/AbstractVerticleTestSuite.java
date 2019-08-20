@@ -13,7 +13,7 @@ import io.vertx.reactivex.core.http.HttpServer;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.client.WebClient;
 import io.vertx.reactivex.pgclient.PgPool;
-import it.plague.blog.config.Constant;
+import it.plague.blog.config.WebConstant;
 import it.plague.blog.config.guice.GuiceVerticleFactory;
 import it.plague.blog.database.ArticleDatabaseService;
 import lombok.Getter;
@@ -41,7 +41,7 @@ public class AbstractVerticleTestSuite {
   protected TemplateEngine templateEngine;
 
   @Mock
-  protected ArticleDatabaseService dbService;
+  protected ArticleDatabaseService articleDbService;
 
   @Mock
   protected PgPool client;
@@ -58,13 +58,13 @@ public class AbstractVerticleTestSuite {
     log.info("Initializing Vert.x instance...");
     var injector = Guice.createInjector(binder -> {
       var properties = new Properties();
-      properties.setProperty(Constant.HTTP_SERVER_HOST, "localhost");
-      properties.setProperty(Constant.HTTP_SERVER_PORT, String.valueOf(getRandomPort(2000, 50000)));
+      properties.setProperty(WebConstant.HTTP_SERVER_HOST, "localhost");
+      properties.setProperty(WebConstant.HTTP_SERVER_PORT, String.valueOf(getRandomPort(2000, 50000)));
       binder.bind(Vertx.class).toInstance(vertx);
       binder.bind(HttpServer.class).toInstance(vertx.createHttpServer());
       binder.bind(Router.class).toInstance(Router.router(vertx));
       binder.bind(TemplateEngine.class).toInstance(templateEngine);
-      binder.bind(ArticleDatabaseService.class).toInstance(dbService);
+      binder.bind(ArticleDatabaseService.class).toInstance(articleDbService);
       binder.bind(PgPool.class).toInstance(client);
       Names.bindProperties(binder, properties);
     });

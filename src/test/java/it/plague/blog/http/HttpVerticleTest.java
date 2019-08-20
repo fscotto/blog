@@ -10,7 +10,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.junit5.Timeout;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.reactivex.ext.web.codec.BodyCodec;
-import it.plague.blog.config.Constant;
+import it.plague.blog.config.WebConstant;
 import it.plague.blog.domain.Article;
 import it.plague.blog.domain.Author;
 import it.plague.blog.domain.User;
@@ -36,11 +36,11 @@ import static org.mockito.Mockito.lenient;
 class HttpVerticleTest extends AbstractVerticleTestSuite {
 
   @Inject
-  @Named(Constant.HTTP_SERVER_HOST)
+  @Named(WebConstant.HTTP_SERVER_HOST)
   String host;
 
   @Inject
-  @Named(Constant.HTTP_SERVER_PORT)
+  @Named(WebConstant.HTTP_SERVER_PORT)
   String port;
 
   @BeforeEach
@@ -95,7 +95,7 @@ class HttpVerticleTest extends AbstractVerticleTestSuite {
   }
 
   private void mockingDependencyMethodCall(JsonArray data) {
-    lenient().when(dbService.fetchAllArticles(any(Handler.class)))
+    lenient().when(articleDbService.fetchAllArticles(any(Handler.class)))
       .thenAnswer(invocation -> {
         ((Handler<AsyncResult<JsonArray>>) invocation.getArgument(0))
           .handle(Future.succeededFuture(data));
