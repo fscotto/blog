@@ -2,6 +2,6 @@
 
 <@layout.template>
     <div class="col-md-8">
-        <p>${curriculum}</p>
+        <p>${markdownToHtml(curriculum)}</p>
     </div>
 </@layout.template>

@@ -113,9 +113,9 @@
 
         <!-- Markdown Parser -->
         <dependency>
-            <groupId>com.github.rjeschke</groupId>
-            <artifactId>txtmark</artifactId>
-            <version>0.13</version>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark-all</artifactId>
+            <version>0.50.26</version>
         </dependency>
 
         <!-- Testing Library -->
@@ -256,6 +256,24 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- Sass compiler -->
+            <plugin>
+                <groupId>com.github.warmuuh</groupId>
+                <artifactId>libsass-maven-plugin</artifactId>
+                <version>0.2.10-libsass_3.5.3</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <inputPath>${project.basedir}/src/main/resources/webroot/sass</inputPath>
+                    <outputPath>${project.build.outputDirectory}/webroot/css</outputPath>
+                </configuration>
             </plugin>
         </plugins>
         <finalName>${project.artifactId}</finalName>
