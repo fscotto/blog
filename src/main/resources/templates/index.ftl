@@ -17,7 +17,7 @@
                     <p class="card-text">
                         ${article.content}
                     </p>
-                    <a href="#" class="btn btn-primary">Leggi &rarr;</a>
+                    <a href="/article/${article.id}" class="btn btn-primary">Leggi &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
                     Pubblicato il ${formatDateTime(article.created, 'dd/MM/yyyy HH:mm')} da

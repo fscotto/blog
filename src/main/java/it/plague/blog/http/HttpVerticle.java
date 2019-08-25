@@ -18,6 +18,7 @@ import it.plague.blog.domain.Article;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,7 @@ public class HttpVerticle extends AbstractVerticle {
   public void start(Promise<Void> promise) {
     log.info("Setting routing urls handled...");
     router.get("/").handler(this::indexHandler);
+    router.get("/article/:id").handler(this::articleHandler);
     router.get("/about").handler(this::aboutHandler);
     router.get("/cv").handler(this::curriculumHandler);
     router.get("/contacts").handler(this::contactHandler);
@@ -87,12 +89,29 @@ public class HttpVerticle extends AbstractVerticle {
         context.put("articles", reply.result()
           .stream()
           .filter(Objects::nonNull)
-          .filter(obj -> obj instanceof JsonObject)
-          .map(obj -> (JsonObject) obj)
-          .map(jsonObject -> new Article(jsonObject))
+          .filter(JsonObject.class::isInstance)
+          .map(JsonObject.class::cast)
+          .map(Article::new)
+          .sorted(Comparator.comparing(Article::getCreated))
           .collect(Collectors.toList()));
         renderPage(context, "templates/index");
       } else {
+        log.error("Loading index failed", reply.cause());
+        context.fail(reply.cause());
+      }
+    });
+  }
+
+  private void articleHandler(RoutingContext context) {
+    var id = NumberUtils.toLong(context.request().getParam("id"));
+    articleDbService.fetchArticle(id, reply -> {
+      if (reply.succeeded()) {
+        var article = new Article(reply.result().getJsonObject("article"));
+        context.put("title", article.getTitle());
+        context.put("article", article);
+        renderPage(context, "templates/article");
+      } else {
+        log.error("Loading article failed", reply.cause());
         context.fail(reply.cause());
       }
     });
