@@ -8,7 +8,8 @@ import io.vertx.reactivex.core.Vertx;
 import it.plague.blog.config.guice.*;
 import it.plague.blog.database.ArticleDatabaseVerticle;
 import it.plague.blog.database.InformationDatabaseVerticle;
-import it.plague.blog.http.HttpVerticle;
+import it.plague.blog.http.ArticleWebVerticle;
+import it.plague.blog.http.InformationWebVerticle;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
@@ -16,13 +17,17 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class BlogApplication {
 
+  private static Vertx vertx;
+  private static VerticleFactory factory;
+
   public static void main(String[] args) {
     log.info("Start Vert.x Home Blog");
-    Vertx vertx = Vertx.vertx(getOptions());
-    VerticleFactory factory = guiceBootstrap(vertx);
-    deploy(vertx, factory.prefix(), HttpVerticle.class.getName());
-    deploy(vertx, factory.prefix(), ArticleDatabaseVerticle.class.getName());
-    deploy(vertx, factory.prefix(), InformationDatabaseVerticle.class.getName());
+    vertx = Vertx.vertx(getOptions());
+    factory = guiceBootstrap(vertx);
+    deployVerticle(ArticleWebVerticle.class.getName());
+    deployVerticle(ArticleDatabaseVerticle.class.getName());
+    deployVerticle(InformationWebVerticle.class.getName());
+    deployVerticle(InformationDatabaseVerticle.class.getName());
   }
 
   private static VerticleFactory guiceBootstrap(Vertx vertx) {
@@ -41,8 +46,9 @@ public class BlogApplication {
     };
   }
 
-  private static void deploy(Vertx vertx, String prefix, String verticleName) {
-    vertx.deployVerticle(prefix + ":" + verticleName);
+  private static void deployVerticle(String verticleName) {
+    log.debug(String.format("Deploy verticle with name %s", verticleName));
+    vertx.deployVerticle(factory.prefix() + ":" + verticleName);
   }
 
   private static VertxOptions getOptions() {
