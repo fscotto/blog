@@ -9,8 +9,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: blog
-    volumes:
-      - ./sql:/docker-entrypoint-initdb.d
   pgadmin:
     image: dpage/pgadmin4
     depends_on:
