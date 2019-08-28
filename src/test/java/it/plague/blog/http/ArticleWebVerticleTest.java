@@ -123,8 +123,10 @@ class ArticleWebVerticleTest extends AbstractVerticleTestSuite {
 
     lenient().when(articleDbService.fetchArticle(anyLong(), any(Handler.class)))
       .thenAnswer(invocation -> {
-        ((Handler<AsyncResult<JsonObject>>) invocation.getArgument(0))
-          .handle(Future.succeededFuture(data.getJsonObject(0)));
+        ((Handler<AsyncResult<JsonObject>>) invocation.getArgument(1))
+          .handle(Future.succeededFuture(new JsonObject()
+            .put("found", Boolean.TRUE)
+            .put("article", data.getJsonObject(0))));
         return null;
       });
 

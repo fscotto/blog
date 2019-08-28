@@ -23,21 +23,20 @@ public class BlogApplication {
   public static void main(String[] args) {
     log.info("Start Vert.x Home Blog");
     vertx = Vertx.vertx(getOptions());
-    factory = guiceBootstrap(vertx);
+    guiceBootstrap();
     deployVerticle(ArticleWebVerticle.class.getName());
     deployVerticle(ArticleDatabaseVerticle.class.getName());
     deployVerticle(InformationWebVerticle.class.getName());
     deployVerticle(InformationDatabaseVerticle.class.getName());
   }
 
-  private static VerticleFactory guiceBootstrap(Vertx vertx) {
-    var injector = Guice.createInjector(getModules(vertx));
-    var factory = new GuiceVerticleFactory(injector);
+  private static void guiceBootstrap() {
+    var injector = Guice.createInjector(getModules());
+    factory = new GuiceVerticleFactory(injector);
     vertx.registerVerticleFactory(factory);
-    return factory;
   }
 
-  private static Module[] getModules(Vertx vertx) {
+  private static Module[] getModules() {
     return new Module[]{
       new VertxModule(vertx),
       new ConfigModule(),
@@ -60,4 +59,5 @@ public class BlogApplication {
       .setMaxWorkerExecuteTime(TimeUnit.SECONDS.toNanos(1))
       .setBlockedThreadCheckInterval(TimeUnit.SECONDS.toMillis(1));
   }
+
 }

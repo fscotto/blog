@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -53,8 +54,10 @@ class DateUtilTest {
   @Test
   @DisplayName("Should be convert from LocalDateTime to java.util.Date with toDate method")
   void shouldBeConvertFromLocalDateTimeToDate() {
-    assertThat(DateUtil.toDate(LocalDateTime.now()))
-      .isEqualToIgnoringMillis(new java.util.Date());
+    Calendar cal = Calendar.getInstance();
+    cal.set(2019, Calendar.JANUARY, 01, 00, 00, 00);
+    assertThat(DateUtil.toDate(LocalDateTime.of(2019, Month.JANUARY, 01, 00, 00, 00)))
+      .isEqualToIgnoringMillis(cal.getTime());
   }
 
 }
