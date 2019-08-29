@@ -1,6 +1,7 @@
 package it.plague.blog.database;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import io.vertx.junit5.VertxTestContext;
 import it.plague.blog.config.WebConstant;
@@ -17,6 +18,11 @@ class InformationDatabaseVerticleTest extends AbstractVerticleTestSuite {
   @Inject
   @Named(WebConstant.HTTP_SERVER_PORT)
   String port;
+
+  @Override
+  protected Injector getInjector() {
+    return null;
+  }
 
   @BeforeEach
   void setUp(VertxTestContext context) {

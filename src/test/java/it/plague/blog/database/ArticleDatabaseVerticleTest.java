@@ -1,6 +1,7 @@
 package it.plague.blog.database;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import io.vertx.junit5.Timeout;
 import io.vertx.junit5.VertxTestContext;
@@ -21,6 +22,11 @@ class ArticleDatabaseVerticleTest extends AbstractVerticleTestSuite {
   @Inject
   @Named(WebConstant.HTTP_SERVER_PORT)
   String port;
+
+  @Override
+  protected Injector getInjector() {
+    return null;
+  }
 
   @BeforeEach
   @Timeout(value = 3, timeUnit = TimeUnit.SECONDS)

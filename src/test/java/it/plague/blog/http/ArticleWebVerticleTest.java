@@ -1,17 +1,25 @@
 package it.plague.blog.http;
 
+import com.google.inject.Guice;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.common.template.TemplateEngine;
 import io.vertx.junit5.Timeout;
 import io.vertx.junit5.VertxTestContext;
+import io.vertx.reactivex.core.http.HttpServer;
+import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.codec.BodyCodec;
+import io.vertx.reactivex.pgclient.PgPool;
 import it.plague.blog.config.WebConstant;
+import it.plague.blog.database.ArticleDatabaseService;
 import it.plague.blog.domain.Article;
 import it.plague.blog.domain.Author;
 import it.plague.blog.domain.User;
@@ -22,9 +30,11 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
@@ -35,8 +45,8 @@ import static org.mockito.Mockito.lenient;
 
 @UnitTest
 class ArticleWebVerticleTest extends AbstractVerticleTestSuite {
-
   private static final String INDEX_URL = "/";
+
   private static final String ARTICLE_URL = "/article/1";
 
   @Inject
@@ -46,6 +56,30 @@ class ArticleWebVerticleTest extends AbstractVerticleTestSuite {
   @Inject
   @Named(WebConstant.HTTP_SERVER_PORT)
   String port;
+
+  @Mock
+  protected TemplateEngine templateEngine;
+
+  @Mock
+  protected ArticleDatabaseService articleDbService;
+
+  @Mock
+  protected PgPool client;
+
+  @Override
+  protected Injector getInjector() {
+    return Guice.createInjector(binder -> {
+      var properties = new Properties();
+      properties.setProperty(WebConstant.HTTP_SERVER_HOST, "localhost");
+      properties.setProperty(WebConstant.HTTP_SERVER_PORT, String.valueOf(getRandomPort(2000, 50000)));
+      Names.bindProperties(binder, properties);
+      binder.bind(HttpServer.class).toInstance(getVertx().createHttpServer());
+      binder.bind(Router.class).toInstance(Router.router(getVertx()));
+      binder.bind(TemplateEngine.class).toInstance(templateEngine);
+      binder.bind(ArticleDatabaseService.class).toInstance(articleDbService);
+      binder.bind(PgPool.class).toInstance(client);
+    });
+  }
 
   @BeforeEach
   @Timeout(value = 3, timeUnit = TimeUnit.SECONDS)
