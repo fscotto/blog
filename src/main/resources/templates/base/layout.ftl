@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <footer class="py-5 bg-dark">
+        <footer class="py-5 bg-dark footer mt-auto">
             <#include "footer.ftl" encoding="utf-8">
         </footer>
 

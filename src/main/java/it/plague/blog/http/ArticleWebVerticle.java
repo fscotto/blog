@@ -41,15 +41,17 @@ public class ArticleWebVerticle extends AbstractHttpArticle {
   private void indexHandler(RoutingContext context) {
     articleDbService.fetchAllArticles(reply -> {
       if (reply.succeeded()) {
-        context.put("title", "Home");
-        context.put("articles", reply.result()
+        final var articles = reply.result()
           .stream()
           .filter(Objects::nonNull)
           .filter(JsonObject.class::isInstance)
           .map(JsonObject.class::cast)
           .map(Article::new)
           .sorted(Comparator.comparing(Article::getCreated))
-          .collect(Collectors.toList()));
+          .collect(Collectors.toList());
+        context.put("title", "Home");
+        context.put("articles", articles);
+        context.put("viewPagination", articles.size() > 10);
         renderPage(context, "templates/index");
       } else {
         log.error("Loading index failed", reply.cause());

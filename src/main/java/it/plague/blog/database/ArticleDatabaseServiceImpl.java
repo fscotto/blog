@@ -35,21 +35,21 @@ class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
     vertx.fileSystem()
       .rxReadFile("sql/1-init.sql")
       .map(Buffer::toString)
-      .subscribe(SingleHelper.toObserver(queryResult -> client
+      .subscribe(SingleHelper.toObserver(query -> client
         .rxBegin()
-        .flatMapCompletable(tx -> tx
-          .rxQuery(queryResult.result())
-          .flatMapCompletable(result -> tx.rxCommit())
-          .doOnError(cause -> tx.rxRollback()))
-        .subscribe(
-          () -> {
+        .flatMapCompletable(transaction -> transaction
+          .rxQuery(query.result())
+          .flatMapCompletable(result -> transaction.rxCommit())
+          .doOnError(cause -> transaction.rxRollback()))
+        .subscribe(CompletableHelper.toObserver(result -> {
+          if (result.succeeded()) {
             log.info("Database preparation successful");
             readyHandler.handle(Future.succeededFuture(this));
-          },
-          cause -> {
-            log.error("Database preparation error", cause);
-            readyHandler.handle(Future.failedFuture(cause));
-          })));
+          } else {
+            log.error("Database preparation error", result.cause());
+            readyHandler.handle(Future.failedFuture(result.cause()));
+          }
+        }))));
   }
 
   @Override
@@ -109,8 +109,11 @@ class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
   }
 
   private void executeUpdate(String query, Tuple tuple, Handler<AsyncResult<Void>> resultHandler) {
-    client.rxPreparedQuery(query, tuple)
-      .toCompletable()
+    client.rxBegin()
+      .flatMapCompletable(transaction -> transaction
+        .rxPreparedQuery(query, tuple)
+        .flatMapCompletable(result -> transaction.rxCommit())
+        .doOnError(cause -> transaction.rxRollback()))
       .subscribe(CompletableHelper.toObserver(result -> {
         if (result.succeeded()) {
           resultHandler.handle(Future.succeededFuture());
@@ -149,4 +152,5 @@ class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
     }
     return json;
   }
+
 }
