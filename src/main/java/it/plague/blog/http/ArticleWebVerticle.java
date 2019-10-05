@@ -52,7 +52,7 @@ public class ArticleWebVerticle extends AbstractHttpArticle {
         context.put("title", "Home");
         context.put("articles", articles);
         context.put("viewPagination", articles.size() > 10);
-        renderPage(context, "templates/index");
+        renderPage(context, "index");
       } else {
         log.error("Loading index failed", reply.cause());
         context.fail(reply.cause());
@@ -67,7 +67,7 @@ public class ArticleWebVerticle extends AbstractHttpArticle {
         var article = new Article(reply.result().getJsonObject("article"));
         context.put("title", article.getTitle());
         context.put("article", article);
-        renderPage(context, "templates/article");
+        renderPage(context, "article");
       } else {
         log.error("Loading article failed", reply.cause());
         context.fail(reply.cause());

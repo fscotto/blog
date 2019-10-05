@@ -64,7 +64,8 @@ public abstract class AbstractHttpArticle extends AbstractVerticle {
   }
 
   protected void renderPage(RoutingContext context, String template) {
-    templateEngine.render(context.data(), template, page -> {
+    var layoutSelector = new LayoutSelector("layout2", template);
+    templateEngine.render(context.data(), layoutSelector.getTemplate(), page -> {
       if (page.succeeded()) {
         context.response()
           .putHeader("Content-Type", "text/html")

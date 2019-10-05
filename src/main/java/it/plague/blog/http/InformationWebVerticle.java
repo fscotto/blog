@@ -37,7 +37,7 @@ public class InformationWebVerticle extends AbstractHttpArticle {
         if (reply.succeeded()) {
           context.put("title", "About");
           context.put("info", reply.result().body());
-          renderPage(context, "templates/about");
+          renderPage(context, "about");
         } else {
           log.error(String.format("Contact address %s failed", EventBusAddress.ABOUT_ADDR), reply.cause());
           context.fail(reply.cause());
@@ -52,7 +52,7 @@ public class InformationWebVerticle extends AbstractHttpArticle {
         if (reply.succeeded()) {
           context.put("title", "Curriculum Vitae");
           context.put("curriculum", reply.result().body());
-          renderPage(context, "templates/curriculum");
+          renderPage(context, "curriculum");
         } else {
           log.error(String.format("Contact address %s failed", EventBusAddress.CURRICULUM_ADDR), reply.cause());
           context.fail(reply.cause());
@@ -67,7 +67,7 @@ public class InformationWebVerticle extends AbstractHttpArticle {
         if (reply.succeeded()) {
           context.put("title", "Contatti");
           context.put("contact", reply.result().body());
-          renderPage(context, "templates/contact");
+          renderPage(context, "contact");
         } else {
           log.error(String.format("Contact address %s failed", EventBusAddress.CONTACT_ADDR), reply.cause());
           context.fail(reply.cause());
