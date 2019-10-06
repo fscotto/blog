@@ -33,8 +33,24 @@ a {
 }
 
 blockquote {
-  font-style: italic;
-  color: $gray-600;
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+blockquote p {
+  display: inline;
 }
 
 .section-heading {
@@ -83,7 +99,6 @@ img::-moz-selection {
 }
 
 .table td, .table th {
-  border: 1px solid #ddd;
   padding: 8px;
 }
 
@@ -92,13 +107,13 @@ img::-moz-selection {
 }
 
 .table tr:hover {
-  background-color: #ddd;
+  background-color: #FFCA3C;
 }
 
 .table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
+  text-align: center;
+  background-color: #782b90;
   color: white;
 }

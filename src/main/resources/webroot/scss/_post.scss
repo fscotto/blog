@@ -4,13 +4,14 @@
     color: $gray-900;
     &:focus,
     &:hover {
-      text-decoration: none;
-      color: $primary;
+      text-decoration: underline;
+      color: $hover;
     }
     > .post-title {
-      font-size: 30px;
+      font-size: 36px;
       margin-top: 30px;
       margin-bottom: 10px;
+      color: $primary;
     }
     > .post-subtitle {
       font-weight: 300;
@@ -18,7 +19,7 @@
     }
   }
   > .post-meta {
-    font-size: 18px;
+    font-size: 14px;
     font-style: italic;
     margin-top: 0;
     color: $gray-600;
@@ -28,14 +29,23 @@
       &:focus,
       &:hover {
         text-decoration: underline;
-        color: $primary;
+        color: $hover;
       }
     }
   }
-  @media only screen and (min-width: 768px) {
+  @media only screen and (min-width: 400px) {
     > a {
+      color: $gray-900;
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+        color: $hover;
+      }
       > .post-title {
-        font-size: 36px;
+        font-size: 46px;
+        &:hover {
+          color: $hover;
+        }
       }
     }
   }

@@ -35,7 +35,7 @@ public class InformationWebVerticle extends AbstractHttpArticle {
       .eventBus()
       .request(EventBusAddress.ABOUT_ADDR, new JsonObject(), reply -> {
         if (reply.succeeded()) {
-          context.put("title", "Chi Sono");
+          context.put("title", "About me");
           context.put("info", reply.result().body());
           renderPage(context, "about");
         } else {

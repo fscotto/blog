@@ -11,8 +11,7 @@
             <h3 class="post-subtitle"></h3>
           </a>
           <p class="post-meta">
-            Pubblicato il ${formatDateTime(article.created, 'dd/MM/yyyy HH:mm')} da
-              ${article.createdBy.name} ${article.createdBy.lastName}
+            ${formatDateTime(article.created, 'dd MMMM yyyy')} da ${article.createdBy.name} ${article.createdBy.lastName}
           </p>
         </div>
         <hr>

@@ -279,7 +279,7 @@
                 </executions>
                 <configuration>
                     <inputPath>${project.basedir}/src/main/resources/webroot/scss</inputPath>
-                    <outputPath>${project.build.outputDirectory}/webroot/css</outputPath>
+                    <outputPath>${project.basedir}/src/main/resources/webroot/css</outputPath>
                 </configuration>
             </plugin>
         </plugins>

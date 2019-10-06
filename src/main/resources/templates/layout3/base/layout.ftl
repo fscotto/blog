@@ -54,7 +54,7 @@
     </nav>
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('/static/image/jumbotron.jpg')">
+    <header class="masthead" style="background-image: url('/static/image/masterhead.png')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -69,7 +69,7 @@
           <#nested>
       </div>
     </div>
-    <hr>
+
     <!-- Footer -->
     <footer>
         <#include "footer.ftl" encoding="utf-8">
