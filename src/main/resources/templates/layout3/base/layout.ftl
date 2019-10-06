@@ -33,56 +33,56 @@
     </head>
 
     <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand" href="/">Plague</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-          Menu
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/about">About me</a>
-            </li>
-          </ul>
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand" href="/">Plague</a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                  data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                  aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About me</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
 
-    <!-- Page Header -->
-    <header class="masthead" style="background-image: url('/static/image/masterhead.png')">
-      <div class="overlay"></div>
+      <!-- Page Header -->
+      <header class="masthead" style="background-image: url('/static/image/masterhead.png')">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+              ${header}
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
       <div class="container">
         <div class="row">
-            ${header}
+            <#nested>
         </div>
       </div>
-    </header>
 
-    <!-- Main Content -->
-    <div class="container">
-      <div class="row">
-          <#nested>
-      </div>
-    </div>
+      <!-- Footer -->
+      <footer>
+          <#include "footer.ftl" encoding="utf-8">
+      </footer>
 
-    <!-- Footer -->
-    <footer>
-        <#include "footer.ftl" encoding="utf-8">
-    </footer>
+      <!-- Bootstrap core JavaScript -->
+      <script src="/static/vendor/jquery/jquery.min.js"></script>
+      <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="/static/vendor/jquery/jquery.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="/static/js/clean-blog.min.js"></script>
-    <!-- UML JS Renderer Library -->
-    <script src="/static/js/mermaid.min.js"></script>
+      <!-- Custom scripts for this template -->
+      <script src="/static/js/clean-blog.min.js"></script>
+      <!-- UML JS Renderer Library -->
+      <script src="/static/js/mermaid.min.js"></script>
     </body>
   </html>
 </#macro>
