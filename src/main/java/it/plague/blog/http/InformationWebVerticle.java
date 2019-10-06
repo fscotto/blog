@@ -25,8 +25,8 @@ public class InformationWebVerticle extends AbstractHttpArticle {
   public void start(Promise<Void> promise) {
     log.info("Setting routing urls handled from InformationWebVerticle...");
     router.get("/about").handler(this::aboutHandler);
-    router.get("/cv").handler(this::curriculumHandler);
-    router.get("/contacts").handler(this::contactHandler);
+    //router.get("/cv").handler(this::curriculumHandler);
+    //router.get("/contacts").handler(this::contactHandler);
     super.start(promise);
   }
 
@@ -35,7 +35,7 @@ public class InformationWebVerticle extends AbstractHttpArticle {
       .eventBus()
       .request(EventBusAddress.ABOUT_ADDR, new JsonObject(), reply -> {
         if (reply.succeeded()) {
-          context.put("title", "About");
+          context.put("title", "Chi Sono");
           context.put("info", reply.result().body());
           renderPage(context, "about");
         } else {

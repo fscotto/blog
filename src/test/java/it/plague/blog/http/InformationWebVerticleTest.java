@@ -24,6 +24,7 @@ import it.plague.blog.support.annotation.UnitTest;
 import it.plague.blog.support.verticle.AbstractVerticleTestSuite;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -117,6 +118,7 @@ class InformationWebVerticleTest extends AbstractVerticleTestSuite {
   }
 
   @Test
+  @Disabled
   @DisplayName("Should be status ok calling /cv address")
   @Timeout(value = 10, timeUnit = TimeUnit.SECONDS)
   void shouldBeStatusOkCallingCurriculumAddress(VertxTestContext context) {
@@ -133,6 +135,7 @@ class InformationWebVerticleTest extends AbstractVerticleTestSuite {
   }
 
   @Test
+  @Disabled
   @DisplayName("Should be status ok calling /cv address with empty content")
   @Timeout(value = 10, timeUnit = TimeUnit.SECONDS)
   void shouldBeStatusOkCallingCurriculumAddressWithEmptyContent(VertxTestContext context) {
@@ -148,6 +151,7 @@ class InformationWebVerticleTest extends AbstractVerticleTestSuite {
   }
 
   @Test
+  @Disabled
   @DisplayName("Should be status ok calling /contacts address")
   @Timeout(value = 10, timeUnit = TimeUnit.SECONDS)
   void shouldBeStatusOkCallingContactAddress(VertxTestContext context) {
@@ -164,6 +168,7 @@ class InformationWebVerticleTest extends AbstractVerticleTestSuite {
   }
 
   @Test
+  @Disabled
   @DisplayName("Should be status ok calling /contacts address with empty content")
   @Timeout(value = 10, timeUnit = TimeUnit.SECONDS)
   void shouldBeStatusOkCallingContactAddressWithEmptyContent(VertxTestContext context) {

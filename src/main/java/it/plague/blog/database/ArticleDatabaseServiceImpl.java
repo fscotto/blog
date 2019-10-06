@@ -28,9 +28,11 @@ class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
     this.vertx = vertx;
     this.client = client;
 
-    prepareDatabase(readyHandler);
+    //prepareDatabase(readyHandler);
+    readyHandler.handle(Future.succeededFuture(this));
   }
 
+  @Deprecated
   private void prepareDatabase(Handler<AsyncResult<ArticleDatabaseService>> readyHandler) {
     vertx.fileSystem()
       .rxReadFile("sql/1-init.sql")

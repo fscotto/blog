@@ -49,7 +49,7 @@ public class ArticleWebVerticle extends AbstractHttpArticle {
           .map(Article::new)
           .sorted(Comparator.comparing(Article::getCreated))
           .collect(Collectors.toList());
-        context.put("title", "Home");
+        context.put("title", "Posts");
         context.put("articles", articles);
         context.put("viewPagination", articles.size() > 10);
         renderPage(context, "index");
