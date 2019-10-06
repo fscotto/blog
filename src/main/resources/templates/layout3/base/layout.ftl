@@ -70,9 +70,13 @@
         </div>
       </div>
 
+      <a id="back-to-top" href="#" class="btn btn-dark btn-sm back-to-top" role="button">
+        <i class="fas fa-angle-double-up"></i>
+      </a>
+
       <!-- Footer -->
       <footer>
-          <#include "footer.ftl" encoding="utf-8">
+        <#include "footer.ftl" encoding="utf-8">
       </footer>
 
       <!-- Bootstrap core JavaScript -->
@@ -83,6 +87,25 @@
       <script src="/static/js/clean-blog.min.js"></script>
       <!-- UML JS Renderer Library -->
       <script src="/static/js/mermaid.min.js"></script>
+
+      <script>
+      $(document).ready(function () {
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+          } else {
+            $('#back-to-top').fadeOut();
+          }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+          $('body,html').animate({
+            scrollTop: 0
+          }, 400);
+          return false;
+        });
+      });
+      </script>
     </body>
   </html>
 </#macro>
