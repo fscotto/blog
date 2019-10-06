@@ -176,6 +176,13 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+
+        <!-- Utility -->
+        <dependency>
+            <groupId>io.mikael</groupId>
+            <artifactId>urlbuilder</artifactId>
+            <version>2.0.9</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -271,8 +278,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <inputPath>${project.basedir}/src/main/resources/webroot/sass</inputPath>
-                    <outputPath>${project.build.outputDirectory}/webroot/css</outputPath>
+                    <inputPath>${project.basedir}/src/main/resources/webroot/scss</inputPath>
+                    <outputPath>${project.basedir}/src/main/resources/webroot/css</outputPath>
                 </configuration>
             </plugin>
         </plugins>

@@ -3,10 +3,8 @@
 <@layout.template>
     <!-- Blog Entries Column -->
     <div class="col-md-8">
-        <h1 class="my-4">
-            Articoli
-            <small></small>
-        </h1>
+        <h1 class="my-4">Articoli</h1>
+        <small>aggiornato al ${.now}</small>
 
         <!-- Blog Post -->
         <#list articles as article>
@@ -31,13 +29,15 @@
         </#list>
 
         <!-- Pagination -->
-        <ul class="pagination justify-content-center mb-4">
-            <li class="page-item">
-                <a class="page-link" href="#">&larr; Precendenti</a>
-            </li>
-            <li class="page-item disabled">
-                <a class="page-link" href="#">Successivi &rarr;</a>
-            </li>
-        </ul>
+        <#if viewPagination>
+            <ul class="pagination justify-content-center mb-4">
+                <li class="page-item">
+                    <a class="page-link" href="#">&larr; Precendenti</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Successivi &rarr;</a>
+                </li>
+            </ul>
+        </#if>
     </div>
 </@layout.template>

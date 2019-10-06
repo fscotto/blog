@@ -8,6 +8,7 @@ import freemarker.template.TemplateModelException;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
+import java.util.Locale;
 
 public class LocalDateTemplateModel implements TemplateMethodModelEx {
 
@@ -17,7 +18,8 @@ public class LocalDateTemplateModel implements TemplateMethodModelEx {
       throw new TemplateModelException("Wrong arguments");
     }
     TemporalAccessor time = (TemporalAccessor) ((StringModel) args.get(0)).getWrappedObject();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(((SimpleScalar) args.get(1)).getAsString());
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(((SimpleScalar) args.get(1)).getAsString(), Locale.ITALY);
     return formatter.format(time);
   }
+
 }
