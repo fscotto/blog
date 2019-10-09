@@ -61,12 +61,13 @@ public class ArticleWebVerticle extends AbstractHttpArticle {
   }
 
   private void articleHandler(RoutingContext context) {
+    final String articleLabel = "article";
     var id = NumberUtils.toLong(context.request().getParam("id"));
     articleDbService.fetchArticle(id, reply -> {
       if (reply.succeeded()) {
-        var article = new Article(reply.result().getJsonObject("article"));
+        var article = new Article(reply.result().getJsonObject(articleLabel));
         context.put("title", article.getTitle());
-        context.put("article", article);
+        context.put(articleLabel, article);
         renderPage(context, "article");
       } else {
         log.error("Loading article failed", reply.cause());

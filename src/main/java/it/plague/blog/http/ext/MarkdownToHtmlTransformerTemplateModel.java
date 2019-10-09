@@ -22,7 +22,7 @@ import com.vladsch.flexmark.ext.youtube.embedded.YouTubeLinkExtension;
 import com.vladsch.flexmark.formatter.Formatter;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.profiles.pegdown.Extensions;
+import com.vladsch.flexmark.parser.PegdownExtensions;
 import com.vladsch.flexmark.profiles.pegdown.PegdownOptionsAdapter;
 import com.vladsch.flexmark.util.ast.KeepType;
 import com.vladsch.flexmark.util.data.DataSet;
@@ -64,7 +64,7 @@ public class MarkdownToHtmlTransformerTemplateModel implements TemplateMethodMod
   }
 
   private DataSet options() {
-    return new MutableDataSet(PegdownOptionsAdapter.flexmarkOptions(Extensions.ALL).toMutable())
+    return new MutableDataSet(PegdownOptionsAdapter.flexmarkOptions(PegdownExtensions.ALL).toMutable())
       .set(AttributesExtension.USE_EMPTY_IMPLICIT_AS_SPAN_DELIMITER, Boolean.TRUE)
       .set(Formatter.INDENTED_CODE_MINIMIZE_INDENT, Boolean.TRUE)
       .set(EmojiExtension.USE_SHORTCUT_TYPE, EmojiShortcutType.GITHUB)

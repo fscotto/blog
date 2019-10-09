@@ -25,8 +25,6 @@ public class InformationWebVerticle extends AbstractHttpArticle {
   public void start(Promise<Void> promise) {
     log.info("Setting routing urls handled from InformationWebVerticle...");
     router.get("/about").handler(this::aboutHandler);
-    //router.get("/cv").handler(this::curriculumHandler);
-    //router.get("/contacts").handler(this::contactHandler);
     super.start(promise);
   }
 
@@ -40,36 +38,6 @@ public class InformationWebVerticle extends AbstractHttpArticle {
           renderPage(context, "about");
         } else {
           log.error(String.format("Contact address %s failed", EventBusAddress.ABOUT_ADDR), reply.cause());
-          context.fail(reply.cause());
-        }
-      });
-  }
-
-  private void curriculumHandler(RoutingContext context) {
-    vertx
-      .eventBus()
-      .request(EventBusAddress.CURRICULUM_ADDR, new JsonObject(), reply -> {
-        if (reply.succeeded()) {
-          context.put("title", "Curriculum Vitae");
-          context.put("curriculum", reply.result().body());
-          renderPage(context, "curriculum");
-        } else {
-          log.error(String.format("Contact address %s failed", EventBusAddress.CURRICULUM_ADDR), reply.cause());
-          context.fail(reply.cause());
-        }
-      });
-  }
-
-  private void contactHandler(RoutingContext context) {
-    vertx
-      .eventBus()
-      .request(EventBusAddress.CONTACT_ADDR, new JsonObject(), reply -> {
-        if (reply.succeeded()) {
-          context.put("title", "Contatti");
-          context.put("contact", reply.result().body());
-          renderPage(context, "contact");
-        } else {
-          log.error(String.format("Contact address %s failed", EventBusAddress.CONTACT_ADDR), reply.cause());
           context.fail(reply.cause());
         }
       });

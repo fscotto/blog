@@ -1,5 +1,9 @@
 package it.plague.blog.config;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class EventBusAddress {
   public static final String ARTICLE_DB_SERVICE = "article.db.service";
 

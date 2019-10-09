@@ -27,12 +27,14 @@ class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
   ArticleDatabaseServiceImpl(Vertx vertx, PgPool client, Handler<AsyncResult<ArticleDatabaseService>> readyHandler) {
     this.vertx = vertx;
     this.client = client;
-
-    //prepareDatabase(readyHandler);
     readyHandler.handle(Future.succeededFuture(this));
   }
 
-  @Deprecated
+  /**
+   * @param readyHandler
+   * @deprecated
+   */
+  @Deprecated(forRemoval = false)
   private void prepareDatabase(Handler<AsyncResult<ArticleDatabaseService>> readyHandler) {
     vertx.fileSystem()
       .rxReadFile("sql/1-init.sql")

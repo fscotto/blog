@@ -7,6 +7,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.vertx.core.json.JsonObject;
 import it.plague.blog.serializer.LocalDateDeserializer;
 import it.plague.blog.serializer.LocalDateSerializer;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class JsonUtil {
 
   public static <T> Optional<T> fromJson(final JsonObject jsonObject, final Class<T> clazz) {

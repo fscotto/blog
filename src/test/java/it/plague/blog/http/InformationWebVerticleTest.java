@@ -24,7 +24,6 @@ import it.plague.blog.support.annotation.UnitTest;
 import it.plague.blog.support.verticle.AbstractVerticleTestSuite;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -59,9 +58,7 @@ class InformationWebVerticleTest extends AbstractVerticleTestSuite {
 
   static {
     responseBody = Map.of(
-      ABOUT_URL, ResponseBody.ABOUT_MSG,
-      CURRICULUM_URL, ResponseBody.CURRICULUM_MSG,
-      CONTACT_URL, ResponseBody.CONTACT_MSG
+      ABOUT_URL, ResponseBody.ABOUT_MSG
     );
   }
 
@@ -117,72 +114,6 @@ class InformationWebVerticleTest extends AbstractVerticleTestSuite {
       }));
   }
 
-  @Test
-  @Disabled
-  @DisplayName("Should be status ok calling /cv address")
-  @Timeout(value = 10, timeUnit = TimeUnit.SECONDS)
-  void shouldBeStatusOkCallingCurriculumAddress(VertxTestContext context) {
-    final var expected = responseBody(CURRICULUM_URL);
-    mockingDependencyMethodCall(expected);
-    getWebClient()
-      .get(NumberUtils.toInt(port), host, CURRICULUM_URL)
-      .as(BodyCodec.string())
-      .send(context.succeeding(response -> {
-        assertThat(response.statusCode()).isEqualTo(200);
-        assertThat(response.body()).isEqualTo(expected);
-        context.completeNow();
-      }));
-  }
-
-  @Test
-  @Disabled
-  @DisplayName("Should be status ok calling /cv address with empty content")
-  @Timeout(value = 10, timeUnit = TimeUnit.SECONDS)
-  void shouldBeStatusOkCallingCurriculumAddressWithEmptyContent(VertxTestContext context) {
-    mockingDependencyMethodCall("");
-    getWebClient()
-      .get(NumberUtils.toInt(port), host, CURRICULUM_URL)
-      .as(BodyCodec.string())
-      .send(context.succeeding(response -> {
-        assertThat(response.statusCode()).isEqualTo(200);
-        assertThat(response.body()).isNull();
-        context.completeNow();
-      }));
-  }
-
-  @Test
-  @Disabled
-  @DisplayName("Should be status ok calling /contacts address")
-  @Timeout(value = 10, timeUnit = TimeUnit.SECONDS)
-  void shouldBeStatusOkCallingContactAddress(VertxTestContext context) {
-    final var expected = responseBody(CONTACT_URL);
-    mockingDependencyMethodCall(expected);
-    getWebClient()
-      .get(NumberUtils.toInt(port), host, CONTACT_URL)
-      .as(BodyCodec.string())
-      .send(context.succeeding(response -> {
-        assertThat(response.statusCode()).isEqualTo(200);
-        assertThat(response.body()).isEqualTo(expected);
-        context.completeNow();
-      }));
-  }
-
-  @Test
-  @Disabled
-  @DisplayName("Should be status ok calling /contacts address with empty content")
-  @Timeout(value = 10, timeUnit = TimeUnit.SECONDS)
-  void shouldBeStatusOkCallingContactAddressWithEmptyContent(VertxTestContext context) {
-    mockingDependencyMethodCall("");
-    getWebClient()
-      .get(NumberUtils.toInt(port), host, CONTACT_URL)
-      .as(BodyCodec.string())
-      .send(context.succeeding(response -> {
-        assertThat(response.statusCode()).isEqualTo(200);
-        assertThat(response.body()).isNull();
-        context.completeNow();
-      }));
-  }
-
   private void mockingDependencyMethodCall(final String content) {
     lenient().doAnswer(invocation -> {
       ((Handler<AsyncResult<Buffer>>) invocation.getArgument(2))
@@ -202,8 +133,6 @@ class InformationWebVerticleTest extends AbstractVerticleTestSuite {
     @Override
     public void start(Promise<Void> promise) {
       registerInfoConsumer(EventBusAddress.ABOUT_ADDR, ResponseBody.ABOUT_MSG);
-      registerInfoConsumer(EventBusAddress.CURRICULUM_ADDR, ResponseBody.CURRICULUM_MSG);
-      registerInfoConsumer(EventBusAddress.CONTACT_ADDR, ResponseBody.CONTACT_MSG);
     }
 
     private void registerInfoConsumer(final String address, final String content) {
@@ -217,8 +146,6 @@ class InformationWebVerticleTest extends AbstractVerticleTestSuite {
 
   private static class ResponseBody {
     static final String ABOUT_MSG = "there is about";
-    static final String CURRICULUM_MSG = "there is curriculum";
-    static final String CONTACT_MSG = "there is contacts";
   }
 
 }

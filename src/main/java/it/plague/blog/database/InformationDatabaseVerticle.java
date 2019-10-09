@@ -14,6 +14,7 @@ import java.util.function.Function;
 
 public class InformationDatabaseVerticle extends AbstractVerticle {
 
+  private static final String ERROR_MESSAGE = "Info not found!!!";
   private final MongoClient client;
 
   @Inject
@@ -34,7 +35,7 @@ public class InformationDatabaseVerticle extends AbstractVerticle {
         String about = document.result().getString("about");
         message.reply(about != null ? about : "");
       } else {
-        message.fail(1000, "Info not found!!!");
+        message.fail(1000, ERROR_MESSAGE);
       }
     });
   }
@@ -45,7 +46,7 @@ public class InformationDatabaseVerticle extends AbstractVerticle {
         String curriculum = document.result().getString("curriculum");
         message.reply(curriculum != null ? curriculum : "");
       } else {
-        message.fail(1000, "Info not found!!!");
+        message.fail(1000, ERROR_MESSAGE);
       }
     });
   }
@@ -56,7 +57,7 @@ public class InformationDatabaseVerticle extends AbstractVerticle {
         String contact = document.result().getString("contact");
         message.reply(contact != null ? contact : "");
       } else {
-        message.fail(1000, "Info not found!!!");
+        message.fail(1000, ERROR_MESSAGE);
       }
     });
   }
