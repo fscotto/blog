@@ -17,7 +17,7 @@ public final class Builder<T> {
   }
 
   public static <T> Builder<T> of(Supplier<T> instantiator) {
-    return new Builder<T>(instantiator);
+    return new Builder<>(instantiator);
   }
 
   public <U> Builder<T> with(BiConsumer<T, U> consumer, U value) {

@@ -2,6 +2,6 @@
 
 <@layout.template>
     <div class="col-md-8">
-        <p>${contact}</p>
+        <p>${markdownToHtml(info)}</p>
     </div>
 </@layout.template>

@@ -37,6 +37,7 @@ class MyFreeMarkerTemplateLoader implements TemplateLoader {
   }
 
   public void closeTemplateSource(Object templateSource) throws IOException {
+    // I don't know, write this comment for Sonarlint only
   }
 
   private static class StringTemplateSource {

@@ -25,6 +25,7 @@ public class MyFreeMarkerTemplateEngineImpl extends FreeMarkerTemplateEngineImpl
     this.configuration.setTemplateLoader(new MyFreeMarkerTemplateLoader(vertx));
     this.configuration.setCacheStorage(new NullCacheStorage());
     this.configuration.setSharedVariable("formatDateTime", new LocalDateTemplateModel());
+    this.configuration.setSharedVariable("markdownToHtml", new MarkdownToHtmlTransformerTemplateModel());
   }
 
   @Override

@@ -1,14 +1,12 @@
 package it.plague.blog;
 
-import com.google.inject.Guice;
-import com.google.inject.Module;
 import io.vertx.core.VertxOptions;
-import io.vertx.core.spi.VerticleFactory;
 import io.vertx.reactivex.core.Vertx;
 import it.plague.blog.config.guice.*;
 import it.plague.blog.database.ArticleDatabaseVerticle;
 import it.plague.blog.database.InformationDatabaseVerticle;
-import it.plague.blog.http.HttpVerticle;
+import it.plague.blog.http.ArticleWebVerticle;
+import it.plague.blog.http.InformationWebVerticle;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
@@ -17,32 +15,19 @@ import java.util.concurrent.TimeUnit;
 public class BlogApplication {
 
   public static void main(String[] args) {
-    log.info("Start Vert.x Home Blog");
-    Vertx vertx = Vertx.vertx(getOptions());
-    VerticleFactory factory = guiceBootstrap(vertx);
-    deploy(vertx, factory.prefix(), HttpVerticle.class.getName());
-    deploy(vertx, factory.prefix(), ArticleDatabaseVerticle.class.getName());
-    deploy(vertx, factory.prefix(), InformationDatabaseVerticle.class.getName());
-  }
-
-  private static VerticleFactory guiceBootstrap(Vertx vertx) {
-    var injector = Guice.createInjector(getModules(vertx));
-    var factory = new GuiceVerticleFactory(injector);
-    vertx.registerVerticleFactory(factory);
-    return factory;
-  }
-
-  private static Module[] getModules(Vertx vertx) {
-    return new Module[]{
-      new VertxModule(vertx),
-      new ConfigModule(),
-      new WebModule(vertx),
-      new DatabaseModule(vertx)
-    };
-  }
-
-  private static void deploy(Vertx vertx, String prefix, String verticleName) {
-    vertx.deployVerticle(prefix + ":" + verticleName);
+    log.info("Start Plague's Blog");
+    var vertx = Vertx.vertx(getOptions());
+    GuiceRunner.newInstance(vertx)
+      .registerModule(new VertxModule(vertx))
+      .registerModule(new ConfigModule())
+      .registerModule(new WebModule(vertx))
+      .registerModule(new DatabaseModule(vertx))
+      .deployVerticle(ArticleWebVerticle.class.getName())
+      .deployVerticle(ArticleDatabaseVerticle.class.getName())
+      .deployVerticle(InformationWebVerticle.class.getName())
+      .deployVerticle(InformationDatabaseVerticle.class.getName())
+      .start();
+    log.info("Plague's Blog started");
   }
 
   private static VertxOptions getOptions() {
@@ -54,4 +39,5 @@ public class BlogApplication {
       .setMaxWorkerExecuteTime(TimeUnit.SECONDS.toNanos(1))
       .setBlockedThreadCheckInterval(TimeUnit.SECONDS.toMillis(1));
   }
+
 }

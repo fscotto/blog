@@ -1,5 +1,9 @@
 package it.plague.blog.database;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class SqlQuery {
   public static final String FETCH_ALL_ARTICLES =
     "select " +

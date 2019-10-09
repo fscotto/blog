@@ -2,12 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="site" />
-      </profile>
       <profile name="Annotation profile for plague-site" enabled="true">
         <sourceOutputDir name="src/main/generated" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -20,7 +14,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="plague-blog" target="11" />
-      <module name="site" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

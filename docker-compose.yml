@@ -9,8 +9,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: blog
-    volumes:
-      - ./sql:/docker-entrypoint-initdb.d
   pgadmin:
     image: dpage/pgadmin4
     depends_on:
@@ -30,4 +28,4 @@ services:
       - ./data/db:/data/db
     ports:
       - 27017:27017
-    command: mongod --smallfiles --logpath=/dev/null # --quiet
+    command: mongod --logpath=/dev/null # --quiet

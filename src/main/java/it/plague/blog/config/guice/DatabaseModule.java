@@ -24,6 +24,7 @@ public class DatabaseModule extends PrivateModule {
 
   @Override
   protected void configure() {
+    // it MUST be override because it's abstract but I don't use classic container binding
   }
 
   @Exposed
