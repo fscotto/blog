@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>it.plague.blog</groupId>
-    <artifactId>plague-site</artifactId>
+    <groupId>org.fscotto.blog</groupId>
+    <artifactId>blog</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
 
@@ -233,7 +233,7 @@
                         <jvmArg>-Xms512m</jvmArg>
                         <jvmArg>-Xmx1024m</jvmArg>
                     </jvmArgs>
-                    <launcher>it.plague.blog.BlogApplication</launcher>
+                    <launcher>org.fscotto.blog.BlogApplication</launcher>
                     <redeploy>true</redeploy>
                 </configuration>
             </plugin>
