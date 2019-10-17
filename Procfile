@@ -1,1 +1,1 @@
-web: java -jar target/plague-site.jar
+web: java -jar target/blog.jar
