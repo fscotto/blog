@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
+import it.plague.blog.util.BeanMonad;
 import it.plague.blog.util.JsonUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,17 +27,12 @@ public class Author {
   private User user;
 
   public Author(JsonObject jsonObject) {
-    JsonUtil.fromJson(jsonObject, this.getClass()).ifPresent(this::init);
-  }
-
-  private void init(Author author) {
-    this.id = author.id;
-    this.name = author.name;
-    this.lastName = author.lastName;
-    this.user = author.user;
+    JsonUtil.fromJson(jsonObject, this.getClass())
+      .ifPresent(o -> BeanMonad.copy(this, o));
   }
 
   public JsonObject toJson() {
     return JsonUtil.toJson(this);
   }
+
 }
