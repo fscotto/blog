@@ -1,1 +1,1 @@
-web: java -jar target/blog.jar
+web: java -jar backend/target/blog.jar
