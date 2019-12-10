@@ -7,7 +7,7 @@
         <sourceOutputDir name="src/main/generated" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <option name="outputDirectory" value="C:\Users\Fabio\Documents\Progetti\plague-blog\frontend/src/main" />
+        <option name="outputDirectory" value="$PROJECT_DIR$/frontend/src/main" />
         <processor name="lombok.launch.AnnotationProcessorHider$AnnotationProcessor" />
         <processor name="io.vertx.codegen.CodeGenProcessor" />
         <module name="frontend" />
@@ -16,7 +16,7 @@
         <sourceOutputDir name="src/main/generated" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <option name="outputDirectory" value="C:\Users\Fabio\Documents\Progetti\plague-blog\backend/src/main" />
+        <option name="outputDirectory" value="$PROJECT_DIR$/backend/src/main" />
         <processor name="lombok.launch.AnnotationProcessorHider$AnnotationProcessor" />
         <processor name="io.vertx.codegen.CodeGenProcessor" />
         <module name="backend" />
@@ -30,8 +30,8 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="backend" options="-AoutputDirectory=C:\Users\Fabio\Documents\Progetti\plague-blog\backend/src/main" />
-      <module name="frontend" options="-AoutputDirectory=C:\Users\Fabio\Documents\Progetti\plague-blog\frontend/src/main" />
+      <module name="backend" options="-AoutputDirectory=$PROJECT_DIR$/backend/src/main" />
+      <module name="frontend" options="-AoutputDirectory=$PROJECT_DIR$/frontend/src/main" />
       <module name="plague-blog" options="" />
     </option>
   </component>
