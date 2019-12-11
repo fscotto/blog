@@ -128,8 +128,10 @@ buildNumber.properties
 **/asciidoc
 **/generated
 
-
 ### MongoDB ###
 **/data
+
+## Frontend Stuff ##
+backend/src/main/resources/public
 
 # End of https://www.gitignore.io/api/java,maven,vertx,intellij

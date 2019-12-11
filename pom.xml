@@ -89,6 +89,9 @@
                         <fileset>
                             <directory>${project.basedir}/backend/src/main/generated</directory>
                         </fileset>
+                        <fileset>
+                            <directory>${project.basedir}/backend/src/main/asciidoc</directory>
+                        </fileset>
                     </filesets>
                 </configuration>
             </plugin>
