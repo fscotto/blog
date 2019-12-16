@@ -25,7 +25,7 @@ import io.vertx.core.json.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.fscotto.blog.util.BeanMonad;
+import org.fscotto.blog.util.BeanUtil;
 import org.fscotto.blog.util.JsonUtil;
 
 @Data
@@ -41,7 +41,7 @@ public class User {
 
   public User(JsonObject jsonObject) {
     JsonUtil.fromJson(jsonObject, this.getClass())
-      .ifPresent(o -> BeanMonad.copy(this, o));
+      .ifPresent(o -> BeanUtil.copy(this, o));
   }
 
   public JsonObject toJson() {

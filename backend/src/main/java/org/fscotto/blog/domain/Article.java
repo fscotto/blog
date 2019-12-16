@@ -26,7 +26,7 @@ import io.vertx.reactivex.sqlclient.Tuple;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.fscotto.blog.util.BeanMonad;
+import org.fscotto.blog.util.BeanUtil;
 import org.fscotto.blog.util.JsonUtil;
 
 import java.time.LocalDateTime;
@@ -48,7 +48,7 @@ public class Article {
 
   public Article(JsonObject jsonObject) {
     JsonUtil.fromJson(jsonObject, this.getClass())
-      .ifPresent(o -> BeanMonad.copy(this, o));
+      .ifPresent(o -> BeanUtil.copy(this, o));
   }
 
   public JsonObject toJson() {

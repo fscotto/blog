@@ -19,13 +19,16 @@
 
 package org.fscotto.blog.util;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
 
 @Slf4j
-public final class BeanMonad {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class BeanUtil {
 
   public static void copy(Object dest, Object src) {
     try {
