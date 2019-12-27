@@ -98,8 +98,11 @@ public class WebModule extends PrivateModule {
       .allowCredentials(true)
       .allowedMethod(HttpMethod.GET)
       .allowedMethod(HttpMethod.POST)
+      .allowedMethod(HttpMethod.PUT)
+      .allowedMethod(HttpMethod.DELETE)
       .allowedMethod(HttpMethod.OPTIONS)
       .allowedHeader("X-PINGARUNER")
       .allowedHeader("Content-Type");
   }
+
 }

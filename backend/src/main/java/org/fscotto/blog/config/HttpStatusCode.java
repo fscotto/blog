@@ -22,11 +22,18 @@ package org.fscotto.blog.config;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import static com.google.common.net.MediaType.JSON_UTF_8;
-
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class WebConstant {
-  public static final String HTTP_SERVER_PORT = "PORT";
-  public static final String HTTP_SERVER_HOST = "HOST";
-  public static final String APPLICATION_JSON = JSON_UTF_8.toString();
+public final class HttpStatusCode {
+  // 2xx
+  public static final int OK = 200;
+  public static final int CREATED = 201;
+  public static final int NO_CONTENT = 204;
+
+  // 4xx
+  public static final int NOT_FOUND = 404;
+  public static final int METHOD_NOT_ALLOWED = 405;
+  public static final int CONFLICT = 409;
+
+  // 5xx
+  public static final int SERVER_ERROR = 500;
 }

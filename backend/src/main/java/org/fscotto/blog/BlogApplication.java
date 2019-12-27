@@ -27,6 +27,7 @@ import org.fscotto.blog.database.ArticleDatabaseVerticle;
 import org.fscotto.blog.database.InformationDatabaseVerticle;
 import org.fscotto.blog.http.ArticleWebVerticle;
 import org.fscotto.blog.http.InformationWebVerticle;
+import org.fscotto.blog.web.BlogResource;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,9 +42,10 @@ public class BlogApplication {
       .registerModule(new ConfigModule())
       .registerModule(new WebModule(vertx))
       .registerModule(new DatabaseModule(vertx))
+      .deployVerticle(BlogResource.class.getName())
       .deployVerticle(ArticleWebVerticle.class.getName())
-      .deployVerticle(ArticleDatabaseVerticle.class.getName())
       .deployVerticle(InformationWebVerticle.class.getName())
+      .deployVerticle(ArticleDatabaseVerticle.class.getName())
       .deployVerticle(InformationDatabaseVerticle.class.getName())
       .start();
     log.info("Plague's Blog started");

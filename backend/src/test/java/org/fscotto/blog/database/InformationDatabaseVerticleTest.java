@@ -24,11 +24,11 @@ import com.google.inject.Injector;
 import com.google.inject.name.Named;
 import io.vertx.junit5.VertxTestContext;
 import org.fscotto.blog.config.WebConstant;
-import org.fscotto.blog.support.annotation.UnitTest;
+import org.fscotto.blog.support.annotation.IntegrationTest;
 import org.fscotto.blog.support.verticle.AbstractVerticleTestSuite;
 import org.junit.jupiter.api.BeforeEach;
 
-@UnitTest
+@IntegrationTest
 class InformationDatabaseVerticleTest extends AbstractVerticleTestSuite {
   @Inject
   @Named(WebConstant.HTTP_SERVER_HOST)

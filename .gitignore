@@ -84,6 +84,7 @@ modules.xml
 
 # Sonarlint plugin
 .idea/sonarlint
+.idea/sonarlint-state.xml
 
 ### Java ###
 # Compiled class file

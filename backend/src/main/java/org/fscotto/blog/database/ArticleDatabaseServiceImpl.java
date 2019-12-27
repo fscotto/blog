@@ -37,6 +37,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.fscotto.blog.domain.Article;
 import org.fscotto.blog.util.DateUtil;
 
+import java.util.Comparator;
+
 @Slf4j
 class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
 
@@ -80,7 +82,9 @@ class ArticleDatabaseServiceImpl implements ArticleDatabaseService {
     client.rxQuery(SqlQuery.FETCH_ALL_ARTICLES)
       .flatMapPublisher(Flowable::fromIterable)
       .map(this::articleRowMapper)
-      .sorted()
+      .map(Article::new)
+      .sorted(Comparator.comparing(Article::getCreated))
+      .map(Article::toJson)
       .collect(JsonArray::new, JsonArray::add)
       .subscribe(SingleHelper.toObserver(result -> {
         if (result.succeeded()) {
