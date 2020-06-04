@@ -1,12 +1,12 @@
 language: java
-addons:
-  sonarcloud:
-    organization: fscotto
-    token:
-      secure:
-        secure: T2oSGvt9yEI+Nnxc5Eyjqcmv7f+jNBW9t2Vwr9mVvEfmK7hl2oYDkjOgaaqxEX2EClZUtAZpnJEO8V07YvrFK/m2VZ9gIra+e8NCzGIP/c4oQL2DrZJMim5RJZJvskUK6Kuq650xLlYYPY5j5C9r8JprmiU6ftNIMCVWLgpJxKX/hLFISwsi0qW6e4ny41IVObd6BVosGu0pkFbeqaY88ZFn1UYPbfhQ77J6qaIrN5PWs4SI1c2/FX2fY2NrmUBTcmt1t59YwrQFi0DTAfIbbNbrCFoHmTWEm6GSATHTFwGNvUyOOVJW+a1mUZt3UvTCtjZD5hXZfeqhFDxYOOPKqXiiFXEpbavfqBpHVxXywCB8IuV4eQrDfuVt2txdCxMb7eTPzf518EnmwUjBbfU4PWFZPJhvgMckXxpsGJ6skn6g7Dr+bZzznB24cuSzo0Xq0yE96wpshIysn+2BH5AeKjUk6qTSAs9asdy1KhUg0A5W967jIs8GhBbhNW/NAMKGSIhAwLsoxNW+6DPs2u3NRF3kUI6bTbiYMf8hqArA0M/EHD0SOQhVehe7qtHgwROXagn7vRE57V5j+tibo2DqKkCNa1ymKqxHxYFK8q5p+E7FGBy3MreC82vrOn6pzhDnQfR1Ywo/K3ZSWjkFuu48RrBUd5qHN2CSKASLwGI2feU=
-script:
-  - sonar-scanner
+#addons:
+#  sonarcloud:
+#    organization: fscotto
+#    token:
+#      secure:
+#        secure: T2oSGvt9yEI+Nnxc5Eyjqcmv7f+jNBW9t2Vwr9mVvEfmK7hl2oYDkjOgaaqxEX2EClZUtAZpnJEO8V07YvrFK/m2VZ9gIra+e8NCzGIP/c4oQL2DrZJMim5RJZJvskUK6Kuq650xLlYYPY5j5C9r8JprmiU6ftNIMCVWLgpJxKX/hLFISwsi0qW6e4ny41IVObd6BVosGu0pkFbeqaY88ZFn1UYPbfhQ77J6qaIrN5PWs4SI1c2/FX2fY2NrmUBTcmt1t59YwrQFi0DTAfIbbNbrCFoHmTWEm6GSATHTFwGNvUyOOVJW+a1mUZt3UvTCtjZD5hXZfeqhFDxYOOPKqXiiFXEpbavfqBpHVxXywCB8IuV4eQrDfuVt2txdCxMb7eTPzf518EnmwUjBbfU4PWFZPJhvgMckXxpsGJ6skn6g7Dr+bZzznB24cuSzo0Xq0yE96wpshIysn+2BH5AeKjUk6qTSAs9asdy1KhUg0A5W967jIs8GhBbhNW/NAMKGSIhAwLsoxNW+6DPs2u3NRF3kUI6bTbiYMf8hqArA0M/EHD0SOQhVehe7qtHgwROXagn7vRE57V5j+tibo2DqKkCNa1ymKqxHxYFK8q5p+E7FGBy3MreC82vrOn6pzhDnQfR1Ywo/K3ZSWjkFuu48RrBUd5qHN2CSKASLwGI2feU=
+#script:
+#  - sonar-scanner
 deploy:
   provider: heroku
   api_key:
