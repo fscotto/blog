@@ -68,8 +68,8 @@ public class MarkdownToHtmlTransformerTemplateModel implements TemplateMethodMod
     var renderer = HtmlRenderer.builder(options()).build();
     return Stream.ofNullable(args)
       .filter(Objects::nonNull)
-      .map(LinkedList::new)
-      .flatMap(value -> Stream.of(value.getFirst()))
+      .map(list -> new LinkedList(list))
+      .flatMap(list -> Stream.of(list.getFirst()))
       .filter(Objects::nonNull)
       .filter(SimpleScalar.class::isInstance)
       .map(SimpleScalar.class::cast)
